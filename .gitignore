@@ -63,3 +63,9 @@ node_modules
 # AWS stuff for publishing static files
 .aws-credentials.json
 .awspublish*
+
+# Python stuff
+__pycache__
+
+# pycharm stuff
+.idea
