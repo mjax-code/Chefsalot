@@ -17,20 +17,22 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from chefsalotserver.viewsets.userviewset import UserViewSet
-from chefsalotserver.viewsets.ingredientviewset import IngredientViewSet
+from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet
+from chefscargo.views import RecipeSubmit
 
 
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'ingredients', IngredientViewSet)
+router.register(r'recipes', RecipeViewSet)
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url('recipe/submit', RecipeSubmit.as_view()),
     url('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
