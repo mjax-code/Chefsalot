@@ -28,7 +28,7 @@ class IngredientQuantity(models.Model):
     quantity = models.CharField(max_length=32)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    descriptor = models.CharField(max_length=32, blank=True)
+    measurement = models.CharField(max_length=32, blank=True)
     prep_descriptor = models.CharField(max_length=64, blank=True)
 
 
