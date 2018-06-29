@@ -18,7 +18,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet
-from chefscargo.views import RecipeSubmit
 
 
 # Routers provide a way of automatically determining the URL conf.
@@ -32,7 +31,6 @@ router.register(r'recipes', RecipeViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url('recipe/submit', RecipeSubmit.as_view()),
     url('admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

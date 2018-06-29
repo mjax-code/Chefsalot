@@ -11,7 +11,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class IngredientQuantitySerializer(serializers.ModelSerializer):
     class Meta:
         model = IngredientQuantity
-        fields = ('ingredient', 'descriptor', 'prep_descriptor', 'quantity', )
+        fields = ('ingredient', 'measurement', 'prep_descriptor', 'quantity', )
+
+
+class IngredientQuantitySerializerSaver(serializers.ModelSerializer):
+    class Meta:
+        model = IngredientQuantity
+        fields = ('ingredient', 'measurement', 'prep_descriptor', 'quantity', 'recipe', )
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -28,5 +34,4 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
-# d = '{"user": 1, "directions": "tests", "cook_time":1, "likes": 1, "dislikes": 0, "servings":1, "ingredients" : ["name":"apple"]}'
 
