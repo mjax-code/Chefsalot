@@ -17,14 +17,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from chefsalotserver.viewsets.userviewset import UserViewSet
-from chefsalotserver.viewsets.ingredientviewset import IngredientViewSet
+from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet
 
 
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'ingredients', IngredientViewSet)
+router.register(r'recipes', RecipeViewSet)
 
 
 # Wire up our API using automatic URL routing.
