@@ -15,12 +15,13 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # name = models.CharField(max_length=32)
     directions = models.TextField()
     cook_time = models.IntegerField()  # minutes
     ingredients = models.ManyToManyField(Ingredient, through='IngredientQuantity')
     created_date = models.DateField(auto_now_add=True, blank=True)
     likes = models.IntegerField()
-    dislikes = models.IntegerField()
+    dislikes = models.IntegerField() #TODO non negative
     servings = models.IntegerField(blank=True, null=True)
 
 
