@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chefscargo',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,8 @@ DATABASES = {
         'NAME': 'chefscargo',
         'USER': 'sirchefsalot',
         'PASSWORD': 'Niclikesthepancakeween',
-        'HOST': 'chefsalot.cmjwnay2r9fk.us-east-2.rds.amazonaws.com',
+        'HOST': 'localhost',
+        # 'HOST': 'chefsalot.cmjwnay2r9fk.us-east-2.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet
-
+from rest_framework.authtoken import views as drf_views
 
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -32,6 +32,7 @@ router.register(r'recipes', RecipeViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url('admin/', admin.site.urls),
+    url(r'^auth/', drf_views.obtain_auth_token, name='auth'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Input } from '@material-ui/core';
 import IngredientAddForm from './IngredientAddForm';
 import IngredientForm from './IngredientForm';
+import axios from 'axios';
 
 class RecipeForm extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class RecipeForm extends Component {
         servings: '',
         directions: '',
         cookTime: '',
-        recipe: '',
+        recipeResponse: '',
     };
 
     this.handleIngredientSubmit =  this.handleIngredientSubmit.bind(this);
@@ -52,8 +53,9 @@ class RecipeForm extends Component {
   }
 
   handleRecipeFormSubmit() {
-      let recipe = this.state.servings + ' ' + this.state.directions + ' ' + this.state.cookTime;
-      this.setState({recipe: recipe});
+    axios.get('http://localhost:8000/users/')
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
   }
 
   render() {
@@ -81,7 +83,7 @@ class RecipeForm extends Component {
             <button onClick={this.handleRecipeFormSubmit}>
                 Add Recipe!
             </button>
-            {this.state.recipe}
+            {this.state.recipeResponse}
         </div>
     );
   }

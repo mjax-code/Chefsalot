@@ -1,13 +1,16 @@
 from chefscargo.models import User, Recipe, Ingredient
 from chefscargo.serializers import UserSerializer, RecipeSerializer, IngredientSerializer, IngredientQuantitySerializerSaver
 from django.db import transaction
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [
+        permissions.AllowAny
+    ]
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
