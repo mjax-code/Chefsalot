@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from '@material-ui/core/Button'
 
 
 class LoginButton extends Component {
@@ -21,9 +22,9 @@ class LoginButton extends Component {
 
   render() {
     return (
-        <button onClick={this.handleLoginSubmit}>
+        <Button variant="contained" color="primary" onClick={this.handleLoginSubmit}>
           Login
-        </button>
+        </Button>
     );
   }
 }

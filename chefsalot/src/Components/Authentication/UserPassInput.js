@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
 
 class UserPassInput extends Component {
   constructor(props) {
@@ -20,14 +21,8 @@ class UserPassInput extends Component {
     return (
       <div>
         <form>
-          <label>
-            Username:
-            <input type="text" onChange={this.onUsernameChange} />
-          </label>
-          <label>
-            Password:
-            <input type="text" onChange={this.onPasswordChange} />
-          </label>
+          <TextField type='text' label='Username' onChange={this.onUsernameChange} />
+          <TextField type='text' label='Password' onChange={this.onPasswordChange} />
         </form>
        </div>
     );
