@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import Topbar from './Topbar';
 import RecipeForm from './RecipeForm';
-import SignupForm from './SignupSubmit';
+import LoginSignupForm from './Authentication/LoginSignupForm'
 
 class Homepage extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        auth_token: '',
+      };
+
+      this.handleAuth = this.handleAuth.bind(this);
+    }
+  
+  handleAuth(token) {
+    this.setState({auth_token:token});
+  }
+  
   render() {
     return (
-      <div>
+    <div>
         <Topbar />
         <RecipeForm />
-        <SignupForm />
+        <LoginSignupForm onAuth={this.handleAuth}/>
+        {this.state.auth_token}
       </div> 
     );
   }
