@@ -53,9 +53,26 @@ class RecipeForm extends Component {
   }
 
   handleRecipeFormSubmit() {
-    axios.get('http://localhost:8000/users/')
-        .then(response => console.log(response))
-        .catch(error => console.log(error));
+    axios({
+        method: 'post',
+        url: 'http://localhost:8000/recipes/',
+        headers: {'Authorization': 'Token ' + this.props.token},
+        data: {
+            user: 1,
+            ingredients: [
+                {
+                    ingredient: "chicken",
+                    measurement: "1",
+                    quantity: "1"
+                }
+            ],
+            directions: "do it",
+            cook_time: 10,
+            servings: 1,
+            likes: 0,
+            dislikes: 0,
+        }
+      }).then(response => console.log(response)).catch(error => console.log(error.response));
   }
 
   render() {
@@ -83,8 +100,9 @@ class RecipeForm extends Component {
             <button onClick={this.handleRecipeFormSubmit}>
                 Add Recipe!
             </button>
-            {this.state.recipeResponse}
-        </div>
+            {this.state.recipeResponse} 
+            {this.props.token}
+            </div>
     );
   }
 }
