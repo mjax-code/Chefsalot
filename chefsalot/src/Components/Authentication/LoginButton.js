@@ -22,7 +22,7 @@ class LoginButton extends Component {
 
   render() {
     return (
-        <Button variant="contained" color="primary" onClick={this.handleLoginSubmit}>
+        <Button style={{margin: "10px"}} variant="contained" color="primary" onClick={this.handleLoginSubmit}>
           Login
         </Button>
     );

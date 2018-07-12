@@ -21,8 +21,8 @@ class UserPassInput extends Component {
     return (
       <div>
         <form>
-          <TextField type='text' label='Username' onChange={this.onUsernameChange} />
-          <TextField type='text' label='Password' onChange={this.onPasswordChange} />
+          <TextField style={{margin: '10px'}} type='text' label='Username' onChange={this.onUsernameChange} />
+          <TextField style={{margin: '10px'}} type='text' label='Password' onChange={this.onPasswordChange} />
         </form>
        </div>
     );
