@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import injectSheet from 'react-jss';
 import Homepage from './Components/Homepage';
+import styles from './Styles/styles';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Homepage />, document.getElementById('root'));
+const StyledHomePage = injectSheet(styles)(Homepage);
+ReactDOM.render(<StyledHomePage />, document.getElementById('root'));
 registerServiceWorker();

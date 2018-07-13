@@ -22,7 +22,7 @@ class Homepage extends Component {
 
   handleLogout() {
     localStorage.removeItem('token');
-    this.setState({auth_token:''})
+    this.setState({auth_token:''});
   }
 
   getAuthToken() {
@@ -44,7 +44,7 @@ class Homepage extends Component {
         );
     } else {
       return(
-        <div>
+        <div className={this.props.classes.test}>
           <Topbar />
           <RecipeForm token={this.state.auth_token} />
           <LogoutButton onClick={this.handleLogout} />
