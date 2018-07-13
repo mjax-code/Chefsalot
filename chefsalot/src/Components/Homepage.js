@@ -15,7 +15,7 @@ class Homepage extends Component {
       this.state = {
         auth_token: '',
         body_component: 'userview',
-        recipe_list: []
+        recipe_list: null
       };
 
       this.handleAuth = this.handleAuth.bind(this);
@@ -37,7 +37,7 @@ class Homepage extends Component {
 
   handleLogout() {
     localStorage.removeItem('token');
-    this.setState({auth_token:''})
+    this.setState({auth_token:'', recipe_list:[]})
   }
 
   refreshAuthToken() {

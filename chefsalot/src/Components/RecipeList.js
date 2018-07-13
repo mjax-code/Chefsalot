@@ -11,7 +11,7 @@ class RecipeList extends Component {
   };
 
   componentDidMount() {
-      if (this.props.recipe_list.length == 0) {
+      if (this.props.recipe_list == null) {
         axios({
             method: 'get',
             url: 'http://localhost:8000/recipes/',
@@ -31,7 +31,7 @@ class RecipeList extends Component {
 }
 
 function RecipeListDisplay(props) {
-    if (props.recipes.length == 0) {
+    if (props.recipes == null || props.recipes.length == 0) {
         return(<div>No Recipes :( </div>);
     } else {
         const recipes = props.recipes.map((recipe) => <RecipeListItem r={recipe}/>);
