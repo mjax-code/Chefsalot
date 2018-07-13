@@ -6,24 +6,25 @@ import axios from 'axios';
 class RecipeList extends Component {
   constructor(props) { 
     super(props);
-    this.state = {
-        recipes: [],
-    }
+
+    this.componentDidMount = this.componentDidMount.bind(this);
   };
 
   componentDidMount() {
-    axios({
-        method: 'get',
-        url: 'http://localhost:8000/recipes/',
-        headers: {'Authorization': 'Token ' + this.props.token},
-      }).then(response => this.setState({recipes:response.data}));
-    //   .catch(error => console.log(error.response));
+      if (this.props.recipe_list.length == 0) {
+        axios({
+            method: 'get',
+            url: 'http://localhost:8000/recipes/',
+            headers: {'Authorization': 'Token ' + this.props.token},
+        }).then(response => this.props.onRecipeLoad(response.data));
+      }
+//   .catch(error => console.log(error.response));
   }
 
   render () {
       return (
           <div> 
-              <RecipeListDisplay recipes={this.state.recipes} />
+              <RecipeListDisplay recipes={this.props.recipe_list} />
           </div>
       );
   }

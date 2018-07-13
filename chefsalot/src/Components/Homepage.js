@@ -15,6 +15,7 @@ class Homepage extends Component {
       this.state = {
         auth_token: '',
         body_component: 'userview',
+        recipe_list: []
       };
 
       this.handleAuth = this.handleAuth.bind(this);
@@ -22,7 +23,12 @@ class Homepage extends Component {
       this.refreshAuthToken = this.refreshAuthToken.bind(this);
       this.getBodyComponent = this.getBodyComponent.bind(this);
       this.handleNav = this.handleNav.bind(this);
+      this.handleRecipeLoad  = this.handleRecipeLoad.bind(this);
     }
+
+  handleRecipeLoad(recipe_list) {
+    this.setState({recipe_list: recipe_list});
+  }
   
   handleAuth(token) {
     localStorage.setItem('token', token);
@@ -52,7 +58,9 @@ class Homepage extends Component {
   getBodyComponent() {
     switch(this.state.body_component) {
       case "userview":
-        return <UserView />
+    return <UserView recipe_list_view={<RecipeList onRecipeLoad={this.handleRecipeLoad}
+                                                   recipe_list={this.state.recipe_list} 
+                                                   token={this.state.auth_token}/>} />
       case "groupview":
         return <GroupView />
       case "recipeview":
@@ -79,7 +87,6 @@ class Homepage extends Component {
           <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
           {this.getBodyComponent()}
           <LogoutButton onClick={this.handleLogout} />
-          <RecipeList token={this.state.auth_token}/>
         </div>
       );
     }
