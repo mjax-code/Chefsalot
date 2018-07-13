@@ -58,7 +58,7 @@ class RecipeForm extends Component {
         url: 'http://localhost:8000/recipes/',
         headers: {'Authorization': 'Token ' + this.props.token},
         data: {
-            user: 1,
+            user: 20,
             ingredients: [
                 {
                     ingredient: "chicken",

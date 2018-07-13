@@ -3,6 +3,7 @@ import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
 import LoginSignupForm from 'Components/Authentication/LoginSignupForm'
 import LogoutButton from 'Components/Authentication/LogoutButton'
+import RecipeList from 'Components/RecipeList'
 
 class Homepage extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class Homepage extends Component {
           <Topbar />
           <RecipeForm token={this.state.auth_token} />
           <LogoutButton onClick={this.handleLogout} />
+          <RecipeList token={this.state.auth_token}/>
         </div>
       );
     }
