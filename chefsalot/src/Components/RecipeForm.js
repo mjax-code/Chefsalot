@@ -13,15 +13,13 @@ class RecipeForm extends Component {
     super(props);
     this.state = {
         ingredients: [],
-        submittedIngredients: [],
-
+        ingredients_key: 0,
         servings: '',
         directions: '',
         cookTime: '',
-        recipeResponse: '',
     };
 
-    this.handleIngredientSubmit =  this.handleIngredientSubmit.bind(this);
+    this.handleIngredientRemove = this.handleIngredientRemove.bind(this);
     this.handleIngredientAddSubmit =  this.handleIngredientAddSubmit.bind(this);
     this.handleServingsChange = this.handleServingsChange.bind(this);
     this.handleCookTimeChange = this.handleCookTimeChange.bind(this);
@@ -31,13 +29,14 @@ class RecipeForm extends Component {
 
   handleIngredientAddSubmit() {
       this.setState(
-        {ingredients: this.state.ingredients.concat([
-            <IngredientForm onSubmit={this.handleIngredientSubmit}/>
-        ])})
+        {ingredients: this.state.ingredients.concat([{key:
+            <IngredientForm onSubmit={this.handleIngredientRemove} key={this.state.ingredients_key}/>}
+        ]), ingredients_key: this.state.ingredients_key + 1});
   }
 
-  handleIngredientSubmit(ingredientSubmit) {
-      this.setState({submittedIngredients: this.state.submittedIngredients.concat([ingredientSubmit])});
+  handleIngredientRemove(key) {
+      this.setState({})
+
   }
 
   handleServingsChange(event) {
@@ -81,7 +80,6 @@ class RecipeForm extends Component {
             <IngredientAddForm 
                 onSubmit={this.handleIngredientAddSubmit} />
             <IngredientList ingredients={this.state.ingredients} />
-            <IngredientList ingredients={this.state.submittedIngredients} />
             <form id="recipeForm">
                 <label>
                     Servings:
@@ -100,7 +98,6 @@ class RecipeForm extends Component {
             <button onClick={this.handleRecipeFormSubmit}>
                 Add Recipe!
             </button>
-            {this.state.recipeResponse} 
             {this.props.token}
             </div>
     );
