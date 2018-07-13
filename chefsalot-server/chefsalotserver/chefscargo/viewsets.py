@@ -29,8 +29,17 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
+    queryset = Recipe.objects.all()
+
+    def get_queryset(self):
+        queryset = Recipe.objects.all()
+        if self.request.user.is_superuser:
+            return queryset
+        else:
+            return queryset.filter(user_id=self.request.user)
+
+
 
     def save_ingredient_quantities(self, ingredient_quantities, r_id):
         for ingredient_quantity in ingredient_quantities:

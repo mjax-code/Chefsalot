@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Topbar from './Topbar';
-import RecipeForm from './RecipeForm';
-import LoginSignupForm from './Authentication/LoginSignupForm'
-import LogoutButton from './Authentication/LogoutButton'
+import Topbar from 'Components/Topbar';
+import RecipeForm from 'Components/RecipeForm';
+import LoginSignupForm from 'Components/Authentication/LoginSignupForm'
+import LogoutButton from 'Components/Authentication/LogoutButton'
+import RecipeList from 'Components/RecipeList'
 
 class Homepage extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Homepage extends Component {
 
       this.handleAuth = this.handleAuth.bind(this);
       this.handleLogout = this.handleLogout.bind(this);
+      this.refreshAuthToken = this.refreshAuthToken.bind(this);
     }
   
   handleAuth(token) {
@@ -25,17 +27,21 @@ class Homepage extends Component {
     this.setState({auth_token:''});
   }
 
-  getAuthToken() {
+  refreshAuthToken() {
     var token = localStorage.getItem('token');
+    if (this.state.auth_token) {
+      return;
+    }
+
     if (token) {
-      return token;
-    } else {
-      return this.state.auth_token;
+      this.setState({auth_token:token})
     }
   }
   
   render() {
-    var token = this.getAuthToken();
+    this.refreshAuthToken();
+    var token = this.state.auth_token;
+
     if (token === '') {
       return (
         <div>
@@ -48,6 +54,7 @@ class Homepage extends Component {
           <Topbar />
           <RecipeForm token={this.state.auth_token} />
           <LogoutButton onClick={this.handleLogout} />
+          <RecipeList token={this.state.auth_token}/>
         </div>
       );
     }
