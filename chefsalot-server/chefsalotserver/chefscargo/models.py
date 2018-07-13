@@ -13,8 +13,21 @@ class Ingredient(models.Model):
     flavor_profile = models.CharField(max_length=16, blank=True)
 
 
+class Group(models.Model):
+    name = models.CharField(max_length=32)
+    user = models.ManyToManyField(User, through='GroupUser')
+
+
+class GroupUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    is_group_admin = models.BooleanField()
+    is_creator = models.BooleanField()
+
+
 class Recipe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, blank=True, null=True, on_delete=models.DO_NOTHING)
     # name = models.CharField(max_length=32)
     directions = models.TextField()
     cook_time = models.IntegerField()  # minutes
