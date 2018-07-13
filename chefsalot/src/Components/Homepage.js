@@ -37,7 +37,7 @@ class Homepage extends Component {
 
   handleLogout() {
     localStorage.removeItem('token');
-    this.setState({auth_token:'', recipe_list:[]})
+    this.setState({auth_token:'', recipe_list:null})
   }
 
   refreshAuthToken() {
