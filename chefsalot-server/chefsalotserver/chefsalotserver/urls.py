@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet
+from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet, GroupViewSet
 from rest_framework.authtoken import views as drf_views
 
 # Routers provide a way of automatically determining the URL conf.
@@ -25,6 +25,7 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'ingredients', IngredientViewSet)
 router.register(r'recipes', RecipeViewSet)
+router.register(r'groups', GroupViewSet)
 
 
 # Wire up our API using automatic URL routing.

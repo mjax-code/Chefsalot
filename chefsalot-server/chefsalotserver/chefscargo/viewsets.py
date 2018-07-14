@@ -1,4 +1,4 @@
-from chefscargo.models import User, Recipe, Ingredient
+from chefscargo.models import User, Recipe, Ingredient, Group
 from chefscargo.serializers import UserSerializer, RecipeSerializer, IngredientSerializer, IngredientQuantitySerializerSaver
 from django.db import transaction
 from rest_framework import viewsets, status, permissions
@@ -38,8 +38,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return queryset
         else:
             return queryset.filter(user_id=self.request.user)
-
-
 
     def save_ingredient_quantities(self, ingredient_quantities, r_id):
         for ingredient_quantity in ingredient_quantities:
@@ -84,3 +82,19 @@ class RecipeViewSet(viewsets.ModelViewSet):
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = IngredientSerializer
+
+    def create(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                pass
+
+        except Exception as e:
+            return Response(e, status.HTTP_400_BAD_REQUEST)
+
+
+

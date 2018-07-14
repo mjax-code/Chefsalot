@@ -3,9 +3,9 @@ import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
 import LoginSignupForm from 'Components/Authentication/LoginSignupForm'
 import LogoutButton from 'Components/Authentication/LogoutButton'
-import RecipeList from 'Components/RecipeList'
-import UserView from 'Components/UserView'
-import GroupView from 'Components/GroupView'
+import RecipeList from 'Components/UserViewComponents/RecipeList'
+import UserView from 'Components/UserViewComponents/UserView'
+import GroupView from 'Components/GroupViewComponents/GroupView'
 
 
 

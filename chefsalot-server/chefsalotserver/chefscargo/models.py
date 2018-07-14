@@ -18,7 +18,7 @@ class Group(models.Model):
     user = models.ManyToManyField(User, through='GroupUser')
 
 
-class GroupUser(models.Model):
+class GroupUser(models.Model): # TODO consider changing this name
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     is_group_admin = models.BooleanField()
