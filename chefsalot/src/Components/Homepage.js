@@ -62,7 +62,7 @@ class Homepage extends Component {
                                                    recipe_list={this.state.recipe_list} 
                                                    token={this.state.auth_token}/>} />
       case "groupview":
-        return <GroupView />
+        return <GroupView token={this.state.auth_token}/>
       case "recipeview":
         return <RecipeForm token={this.state.auth_token}/>
       default:
