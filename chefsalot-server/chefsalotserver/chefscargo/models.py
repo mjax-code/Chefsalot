@@ -15,7 +15,7 @@ class Ingredient(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=32)
-    user = models.ManyToManyField(User, through='GroupUser')
+    user = models.ManyToManyField(User, through='GroupUser') # Database level validation for composite key? name + creator
 
 
 class GroupUser(models.Model): # TODO consider changing this name

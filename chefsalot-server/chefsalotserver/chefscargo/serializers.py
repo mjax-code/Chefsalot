@@ -18,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'url', 'username', 'email', 'is_staff', 'password', )
 
+
 class GroupUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupUser
@@ -27,7 +28,7 @@ class GroupUserSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ('user', 'name', 'prep_descriptor', 'quantity', )
+        fields = ('name', )
 
 
 class IngredientQuantitySerializer(serializers.ModelSerializer):
