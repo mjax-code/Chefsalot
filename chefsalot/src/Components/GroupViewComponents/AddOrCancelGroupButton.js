@@ -4,14 +4,14 @@ import axios from 'axios';
 import Button from '@material-ui/core/Button'
 
 
-class AddGroupButton extends Component {
+class AddOrCancelGroupButton extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-        <Button style={{margin: "10px"}} variant="contained" color="primary" onClick={this.props.handleAddGroupClick}>
+        <Button style={{margin: "10px"}} variant="contained" color="primary" onClick={this.props.handleAddOrCancelGroupClick}>
           {this.props.show_form ? 'Cancel' : 'Add Group'}
         </Button>
     );
@@ -19,4 +19,4 @@ class AddGroupButton extends Component {
 }
 
 
-export default AddGroupButton;
+export default AddOrCancelGroupButton;

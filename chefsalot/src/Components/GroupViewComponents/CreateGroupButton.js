@@ -17,7 +17,11 @@ class GroupCreateButton extends Component {
         data: {
             group: this.props.group_name,
         }
-    }).then(response => this.props.handleGroupCreate(response)).catch(error => console.log(error));
+    }).then(response =>
+        this.props.handleGroupCreateSuccess(response)
+    ).catch(error =>
+        this.props.handleGroupCreateError(error)
+    );
   }
 
   render() {

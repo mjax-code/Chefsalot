@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CreateGroupInput from 'Components/GroupViewComponents/CreateGroupInput';
-import AddGroupButton from 'Components/GroupViewComponents/AddGroupButton';
+import AddOrCancelGroupButton from 'Components/GroupViewComponents/AddOrCancelGroupButton';
 import CreateGroupButton from 'Components/GroupViewComponents/CreateGroupButton';
 
 class GroupForm extends Component {
@@ -9,23 +9,29 @@ class GroupForm extends Component {
         this.state = {
             group_name: '',
             show_form: false,
+            validation_error: '',
+            success_message: '',
         }
-        this.handleAddGroupClick = this.handleAddGroupClick.bind(this);
+        this.handleAddOrCancelGroupClick = this.handleAddOrCancelGroupClick.bind(this);
         this.handleGroupNameChange = this.handleGroupNameChange.bind(this);
-        this.handleGroupCreate = this.handleGroupCreate.bind(this);
+        this.handleGroupCreateSuccess = this.handleGroupCreateSuccess.bind(this);
+        this.handleGroupCreateError = this.handleGroupCreateError.bind(this);
     }
 
-    handleAddGroupClick() {
-        this.setState({show_form: !this.state.show_form});
+    handleAddOrCancelGroupClick() {
+        this.setState({show_form: !this.state.show_form, success_message: '', validation_error: ''});
     }
     
     handleGroupNameChange(group_name) {
         this.setState({group_name:group_name});
     }
 
-
-    handleGroupCreate(group_name) {
-        return null;
+    handleGroupCreateSuccess(response) {
+        this.setState({show_form: !this.state.show_form, success_message: response.data, validation_error: ''});
+    }
+    
+    handleGroupCreateError(error) {
+        error && error.response.status == 400 && this.setState({validation_error:error.response.data});
     }
 
     render() {
@@ -36,10 +42,15 @@ class GroupForm extends Component {
                         <form>
                             <CreateGroupInput  handleGroupNameChange={this.handleGroupNameChange}/>
                         </form>
-                        <CreateGroupButton group_name={this.state.group_name} token={this.props.token} handleGroupCreate={this.handleGroupCreate} />
+                        {this.state.validation_error}
+                        <CreateGroupButton group_name={this.state.group_name} 
+                                           token={this.props.token} 
+                                           handleGroupCreateSuccess={this.handleGroupCreateSuccess}
+                                           handleGroupCreateError={this.handleGroupCreateError} />
                     </div>
                     : ''}
-                <AddGroupButton handleAddGroupClick={this.handleAddGroupClick} show_form={this.state.show_form} />
+                <AddOrCancelGroupButton handleAddOrCancelGroupClick={this.handleAddOrCancelGroupClick} show_form={this.state.show_form} />
+                {this.state.success_message}
             </div>
         );
     }
