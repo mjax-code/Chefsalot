@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import NavButton from 'Components/NavButton';
+
 
 class Topbar extends Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+      }
+  }
 
   render() {
     return(
       <div>
-        
+        <NavButton text="Users" value={this.props.userview} onNav={this.props.onNav} />
+        <NavButton text="Groups" value={this.props.groupview} onNav={this.props.onNav} />
+        <NavButton text="Add Recipe" value={this.props.recipeview} onNav={this.props.onNav} />
       </div>
     );
   }

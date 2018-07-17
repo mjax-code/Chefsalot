@@ -34,8 +34,7 @@ class IngredientForm extends Component {
       }
 
       handleIngredientSubmit() {
-          this.props.onSubmit(this.state.quantity + ' ' +  this.state.measurement
-                    + ' ' + this.state.ingredient);
+          this.props.onSubmit(this.props.key);
       }
 
       render() {
@@ -60,7 +59,7 @@ class IngredientForm extends Component {
                     </label>
                 </form>
                 <button onClick={this.handleIngredientSubmit}>
-                    Add Ingredient 
+                    Remove Ingredient 
                 </button>
               </div>
           );

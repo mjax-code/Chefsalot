@@ -4,17 +4,24 @@ import RecipeForm from 'Components/RecipeForm';
 import LoginSignupForm from 'Components/Authentication/LoginSignupForm'
 import LogoutButton from 'Components/Authentication/LogoutButton'
 import RecipeList from 'Components/RecipeList'
+import UserView from 'Components/UserView'
+import GroupView from 'Components/GroupView'
+
+
 
 class Homepage extends Component {
   constructor(props) {
       super(props);
       this.state = {
         auth_token: '',
+        body_component: 'userview',
       };
 
       this.handleAuth = this.handleAuth.bind(this);
       this.handleLogout = this.handleLogout.bind(this);
       this.refreshAuthToken = this.refreshAuthToken.bind(this);
+      this.getBodyComponent = this.getBodyComponent.bind(this);
+      this.handleNav = this.handleNav.bind(this);
     }
   
   handleAuth(token) {
@@ -37,6 +44,23 @@ class Homepage extends Component {
       this.setState({auth_token:token})
     }
   }
+
+  handleNav(body_component) {
+    this.setState({body_component:body_component});
+  }
+
+  getBodyComponent() {
+    switch(this.state.body_component) {
+      case "userview":
+        return <UserView />
+      case "groupview":
+        return <GroupView />
+      case "recipeview":
+        return <RecipeForm token={this.state.auth_token}/>
+      default:
+        return <UserView />
+    }
+  }
   
   render() {
     this.refreshAuthToken();
@@ -46,13 +70,14 @@ class Homepage extends Component {
       return (
         <div>
             <LoginSignupForm onAuth={this.handleAuth}/>
-          </div> 
-        );
+        </div> 
+      );
     } else {
       return(
-        <div className={this.props.classes.test}>
-          <Topbar />
-          <RecipeForm token={this.state.auth_token} />
+        <div>
+          {/* TODO have a better way of handling these different body components ... enum? */}
+          <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
+          {this.getBodyComponent()}
           <LogoutButton onClick={this.handleLogout} />
           <RecipeList token={this.state.auth_token}/>
         </div>

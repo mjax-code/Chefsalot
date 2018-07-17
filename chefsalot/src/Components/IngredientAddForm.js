@@ -4,7 +4,7 @@ class IngredientAddForm extends Component {
     render() {
         return (
             <button onClick={this.props.onSubmit}>
-                Add Ingredient
+                Add ingredient to recipe
             </button>
         );
     }

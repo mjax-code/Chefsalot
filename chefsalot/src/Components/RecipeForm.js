@@ -9,38 +9,35 @@ import IngredientForm from './IngredientForm';
 import axios from 'axios';
 
 class RecipeForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ingredients: [],
-            submittedIngredients: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+        ingredients: [],
+        ingredients_key: 0,
+        servings: '',
+        directions: '',
+        cookTime: '',
+    };
 
-            servings: '',
-            directions: '',
-            cookTime: '',
-            recipeResponse: '',
-        };
+    this.handleIngredientRemove = this.handleIngredientRemove.bind(this);
+    this.handleIngredientAddSubmit =  this.handleIngredientAddSubmit.bind(this);
+    this.handleServingsChange = this.handleServingsChange.bind(this);
+    this.handleCookTimeChange = this.handleCookTimeChange.bind(this);
+    this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
+    this.handleRecipeFormSubmit = this.handleRecipeFormSubmit.bind(this);
+  }
 
-        this.handleIngredientSubmit = this.handleIngredientSubmit.bind(this);
-        this.handleIngredientAddSubmit = this.handleIngredientAddSubmit.bind(this);
-        this.handleServingsChange = this.handleServingsChange.bind(this);
-        this.handleCookTimeChange = this.handleCookTimeChange.bind(this);
-        this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
-        this.handleRecipeFormSubmit = this.handleRecipeFormSubmit.bind(this);
-    }
+  handleIngredientAddSubmit() {
+      this.setState(
+        {ingredients: this.state.ingredients.concat([{key:
+            <IngredientForm onSubmit={this.handleIngredientRemove} key={this.state.ingredients_key}/>}
+        ]), ingredients_key: this.state.ingredients_key + 1});
+  }
 
-    handleIngredientAddSubmit() {
-        this.setState(
-            {
-                ingredients: this.state.ingredients.concat([
-                    <IngredientForm onSubmit={this.handleIngredientSubmit} />
-                ])
-            })
-    }
+  handleIngredientRemove(key) {
+      this.setState({})
 
-    handleIngredientSubmit(ingredientSubmit) {
-        this.setState({ submittedIngredients: [...this.state.submittedIngredients, ingredientSubmit] });
-    }
+  }
 
     handleServingsChange(event) {
         this.setState({ servings: event.target.value });
@@ -85,7 +82,6 @@ class RecipeForm extends Component {
                 text={'Add Ingedient'} />
 
             <IngredientList ingredients={this.state.ingredients} />
-            <IngredientList ingredients={this.state.submittedIngredients} />
             <form id="recipeForm">
                 <label>
                     Servings:
@@ -104,7 +100,6 @@ class RecipeForm extends Component {
             <button onClick={this.handleRecipeFormSubmit}>
                 Add Recipe!
             </button>
-            {this.state.recipeResponse} 
             {this.props.token}
             </div>
     );
