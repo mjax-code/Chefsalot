@@ -3,9 +3,9 @@ import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
 import LoginSignupForm from 'Components/Authentication/LoginSignupForm'
 import LogoutButton from 'Components/Authentication/LogoutButton'
-import RecipeList from 'Components/RecipeList'
-import UserView from 'Components/UserView'
-import GroupView from 'Components/GroupView'
+import RecipeList from 'Components/UserViewComponents/RecipeList'
+import UserView from 'Components/UserViewComponents/UserView'
+import GroupView from 'Components/GroupViewComponents/GroupView'
 
 
 
@@ -15,6 +15,7 @@ class Homepage extends Component {
       this.state = {
         auth_token: '',
         body_component: 'userview',
+        recipe_list: null
       };
 
       this.handleAuth = this.handleAuth.bind(this);
@@ -22,7 +23,12 @@ class Homepage extends Component {
       this.refreshAuthToken = this.refreshAuthToken.bind(this);
       this.getBodyComponent = this.getBodyComponent.bind(this);
       this.handleNav = this.handleNav.bind(this);
+      this.handleRecipeLoad  = this.handleRecipeLoad.bind(this);
     }
+
+  handleRecipeLoad(recipe_list) {
+    this.setState({recipe_list: recipe_list});
+  }
   
   handleAuth(token) {
     localStorage.setItem('token', token);
@@ -31,7 +37,7 @@ class Homepage extends Component {
 
   handleLogout() {
     localStorage.removeItem('token');
-    this.setState({auth_token:''});
+    this.setState({auth_token:'', recipe_list:null})
   }
 
   refreshAuthToken() {
@@ -52,9 +58,11 @@ class Homepage extends Component {
   getBodyComponent() {
     switch(this.state.body_component) {
       case "userview":
-        return <UserView />
+    return <UserView recipe_list_view={<RecipeList onRecipeLoad={this.handleRecipeLoad}
+                                                   recipe_list={this.state.recipe_list} 
+                                                   token={this.state.auth_token}/>} />
       case "groupview":
-        return <GroupView />
+        return <GroupView token={this.state.auth_token}/>
       case "recipeview":
         return <RecipeForm token={this.state.auth_token}/>
       default:
@@ -79,7 +87,6 @@ class Homepage extends Component {
           <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
           {this.getBodyComponent()}
           <LogoutButton onClick={this.handleLogout} />
-          <RecipeList token={this.state.auth_token}/>
         </div>
       );
     }
