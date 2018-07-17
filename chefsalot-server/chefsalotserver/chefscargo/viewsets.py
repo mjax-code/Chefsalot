@@ -116,8 +116,10 @@ class GroupViewSet(viewsets.ModelViewSet):
                 group_user_serializer = GroupUserSerializer(data=request.data)
                 if not group_user_serializer.is_valid():
                     raise ValueError(group_user_serializer.errors)
-                group_user_serializer.save()
-            return Response("Group created.", status.HTTP_200_OK)
+                group_user = group_user_serializer.save()
+                response_obj = {"message": "Group created", "group": {"name": group_user.group.name}}
+
+            return Response(response_obj, status.HTTP_200_OK)
 
         except ValueError as e:
             return HttpResponseBadRequest(e)
