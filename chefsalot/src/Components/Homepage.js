@@ -82,7 +82,7 @@ class Homepage extends Component {
       );
     } else {
       return(
-        <div>
+        <div className="chefsalot-home-page">
           {/* TODO have a better way of handling these different body components ... enum? */}
           <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
           {this.getBodyComponent()}

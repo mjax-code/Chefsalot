@@ -24,8 +24,7 @@ class GroupView extends Component {
 
     render() {
         return (
-            <div>
-                
+            <div className="group-view">
                 <GroupList group_list={this.state.groups} handleGroupsLoad={this.handleGroupsLoad} 
                            token={this.props.token}/>
                 <GroupForm token={this.props.token} handleGroupsAdd={this.handleGroupsAdd} />

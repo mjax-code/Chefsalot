@@ -89,6 +89,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+    def get_queryset(self):
+        queryset = Group.objects.all()
+        if self.request.user.is_superuser:
+            return queryset
+        else:
+            return queryset.filter(user__id=self.request.user.id)
+
     def create_group(self, user, group):
         qs = GroupUser.objects.all()
         existing_group = qs.filter(user=user, is_creator=True, group__name=group)
