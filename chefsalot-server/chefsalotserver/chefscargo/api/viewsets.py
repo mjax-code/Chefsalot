@@ -1,10 +1,12 @@
-from chefscargo.models import User, Recipe, Ingredient, Group, GroupUser
-from chefscargo.serializers import UserSerializer, RecipeSerializer, IngredientSerializer, IngredientQuantitySerializerSaver, GroupSerializer, GroupUserSerializer
 from django.db import transaction
 from django.http import HttpResponseBadRequest
 from rest_framework import viewsets, status, permissions
-from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+
+from chefscargo.api.serializers import UserSerializer, RecipeSerializer, IngredientSerializer, \
+    IngredientQuantitySerializerSaver, GroupSerializer, GroupUserSerializer
+from chefscargo.models import User, Recipe, Ingredient, Group, GroupUser
 
 
 class UserViewSet(viewsets.ModelViewSet):

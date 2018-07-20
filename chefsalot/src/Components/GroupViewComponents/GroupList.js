@@ -14,6 +14,7 @@ class GroupList extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   };
 
+  
   componentDidMount() {
       if (this.props.groups_list == null) {
         axios({

@@ -28,11 +28,9 @@ INSTALLED_APPS = [
     'chefscargo',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -43,17 +41,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    'localhost:3000',
-)
-
 ROOT_URLCONF = 'chefsalotserver.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["chefscargo/ui/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,3 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'chefscargo/ui/static/src/'),
+]
