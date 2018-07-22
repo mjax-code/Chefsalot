@@ -9,6 +9,7 @@ function GenericListDisplay(props) {
                                                 <ListItemText primary = {props.getValue(item)}></ListItemText>
                                             </ListItem>);
     return (
+        items.length == 0 ? 'No ' + props.listLabel + " :(":
         <List>
             {items}
         </List>
