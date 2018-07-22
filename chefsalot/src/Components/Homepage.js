@@ -6,7 +6,8 @@ import LogoutButton from 'Components/Authentication/LogoutButton'
 import RecipeList from 'Components/UserViewComponents/RecipeList'
 import UserView from 'Components/UserViewComponents/UserView'
 import GroupView from 'Components/GroupViewComponents/GroupView'
-
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 
 
 class Homepage extends Component {
@@ -62,31 +63,37 @@ class Homepage extends Component {
                                                    recipe_list={this.state.recipe_list} 
                                                    token={this.state.auth_token}/>} />
       case "groupview":
-        return <GroupView token={this.state.auth_token}/>
+        return <GroupView token={this.state.auth_token}/> 
       case "recipeview":
         return <RecipeForm token={this.state.auth_token}/>
       default:
         return <UserView />
-    }
+    } 
   }
   
   render() {
     this.refreshAuthToken();
     var token = this.state.auth_token;
+    const style = {
+
+    };
 
     if (token === '') {
       return (
         <div>
+          <img src='/img/pig4.png' alt="pig logo"/>
+          <Paper style= {style} elevation={10} >
             <LoginSignupForm onAuth={this.handleAuth}/>
+          </Paper>
         </div> 
       );
     } else {
       return(
         <div>
-          {/* TODO have a better way of handling these different body components ... enum? */}
-          <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
-          {this.getBodyComponent()}
-          <LogoutButton onClick={this.handleLogout} />
+            {/* TODO have a better way of handling these different body components ... enum? */}
+            <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
+            {this.getBodyComponent()}
+            <LogoutButton onClick={this.handleLogout} />
         </div>
       );
     }
