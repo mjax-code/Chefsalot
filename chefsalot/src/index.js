@@ -5,10 +5,10 @@ import Homepage from './Components/Homepage';
 import registerServiceWorker from './registerServiceWorker';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Provider } from 'react-redux';
-import reducer from 'reducers';
+import rootReducer from 'reducers';
 import { createStore } from 'redux';
 
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 
 class App extends React.Component {
 	render() {
@@ -21,10 +21,8 @@ class App extends React.Component {
 	}
 }
 
-
-
 ReactDOM.render(
-    <Provider>
+    <Provider store={store}>
         <App />
     </Provider>, document.getElementById('root'));
 registerServiceWorker();

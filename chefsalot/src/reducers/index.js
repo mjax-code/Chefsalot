@@ -1,20 +1,17 @@
-
-import { ADD_TOKEN } from 'actions';
+import { ADD_TOKEN, REMOVE_TOKEN } from 'actions';
 import { combineReducers } from 'redux';
 
-function authReduce(state = '', action) {
+function token(state = '', action) {
     switch (action.type) {
         case ADD_TOKEN:
-            return action.token;
+        case REMOVE_TOKEN:
+            return action.token
         default:
             return state;
     }
 
 }
 
-var reducer = combineReducers({
-        authReduce
-    }
-)
-
-export default reducer;
+export default combineReducers({
+    token
+});
