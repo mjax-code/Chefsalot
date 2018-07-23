@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
-import LoginSignupForm from 'Components/Authentication/LoginSignupForm'
-import LogoutButton from 'Components/Authentication/LogoutButton'
-import RecipeList from 'Components/UserViewComponents/RecipeList'
-import UserView from 'Components/UserViewComponents/UserView'
-import GroupView from 'Components/GroupViewComponents/GroupView'
+import LoginSignupForm from 'Components/Authentication/LoginSignupForm';
+import LogoutButton from 'Components/Authentication/LogoutButton';
+import RecipeList from 'Components/UserViewComponents/RecipeList';
+import UserView from 'Components/UserViewComponents/UserView';
+import GroupView from 'Components/GroupViewComponents/GroupView';
+import { addToken } from 'actions';
 
+
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuthSuccess: token => {
+      dispatch(addToken(token));
+    }
+  }
+}
 
 
 class Homepage extends Component {
