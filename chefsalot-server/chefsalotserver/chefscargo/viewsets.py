@@ -89,6 +89,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+    def get_queryset(self):
+        queryset = Group.objects.all()
+        if self.request.user.is_superuser:
+            return queryset
+        else:
+            return queryset.filter(user__id=self.request.user.id)
+
     def create_group(self, user, group):
         qs = GroupUser.objects.all()
         existing_group = qs.filter(user=user, is_creator=True, group__name=group)
@@ -116,8 +123,10 @@ class GroupViewSet(viewsets.ModelViewSet):
                 group_user_serializer = GroupUserSerializer(data=request.data)
                 if not group_user_serializer.is_valid():
                     raise ValueError(group_user_serializer.errors)
-                group_user_serializer.save()
-            return Response("Group created.", status.HTTP_200_OK)
+                group_user = group_user_serializer.save()
+                response_obj = {"message": "Group created", "group": {"name": group_user.group.name}}
+
+            return Response(response_obj, status.HTTP_200_OK)
 
         except ValueError as e:
             return HttpResponseBadRequest(e)

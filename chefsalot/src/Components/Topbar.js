@@ -11,7 +11,7 @@ class Topbar extends Component {
 
   render() {
     return(
-      <div>
+      <div className="nav-bar-container">
         <NavButton text="Users" value={this.props.userview} onNav={this.props.onNav} />
         <NavButton text="Groups" value={this.props.groupview} onNav={this.props.onNav} />
         <NavButton text="Add Recipe" value={this.props.recipeview} onNav={this.props.onNav} />

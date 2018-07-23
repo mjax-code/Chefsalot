@@ -82,11 +82,13 @@ class Homepage extends Component {
       );
     } else {
       return(
-        <div className={this.props.classes.testTwo}>
-          HI
-          {/* TODO have a better way of handling these different body components ... enum? */}
-          <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" /> {this.getBodyComponent()}
-          <LogoutButton onClick={this.handleLogout} />
+        <div className="chefsalot-home-page">
+          <div className="home-page-container">
+            {/* TODO have a better way of handling these different body components ... enum? */}
+            <LogoutButton onClick={this.handleLogout} />
+            <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
+            {this.getBodyComponent()}
+          </div>
         </div>
       );
     }

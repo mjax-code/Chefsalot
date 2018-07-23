@@ -27,7 +27,8 @@ class GroupForm extends Component {
     }
 
     handleGroupCreateSuccess(response) {
-        this.setState({show_form: !this.state.show_form, success_message: response.data, validation_error: ''});
+        this.setState({show_form: !this.state.show_form, success_message: response.data.message, validation_error: ''});
+        this.props.handleGroupsAdd(response.data.group.name)
     }
     
     handleGroupCreateError(error) {
