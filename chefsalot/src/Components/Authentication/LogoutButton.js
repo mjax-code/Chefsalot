@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button'
+import { removeToken } from 'actions';
+import { connect } from 'react-redux';
 
-
-class LogoutButton extends Component {
-   render() {
-    return (
-      <div className="logout-button">
-        <Button variant="contained" color="primary" onClick={this.props.onClick}>
-          Logout
-        </Button>
-      </div>
-    );
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => {
+      dispatch(removeToken());
+    }
   }
 }
 
-export default LogoutButton;
+const LogoutButton = ({onLogout}) =>  (
+      <div className="logout-button">
+        <Button variant="contained" color="primary" onClick={onLogout}>
+          Logout
+        </Button>
+      </div>
+)
+
+export default connect((state) => {return {}}, mapDispatchToProps)(LogoutButton);

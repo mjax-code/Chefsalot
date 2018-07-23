@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button'
 
-
 class SignupButton extends Component {
   constructor(props) {
     super(props);
@@ -22,9 +21,9 @@ class SignupButton extends Component {
 
   render() {
     return (
-        <Button style={{margin: '10px'}} variant="contained" color="primary" onClick={this.handleSignupSubmit}>
-          Sign Up!!
-        </Button>
+          <Button style={{margin: '10px'}} variant="contained" color="primary" onClick={this.handleSignupSubmit}>
+            Sign Up!!
+          </Button>
     );
   }
 }
