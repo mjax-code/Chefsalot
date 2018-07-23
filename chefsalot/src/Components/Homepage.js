@@ -8,7 +8,6 @@ import LogoutButton from 'Components/Authentication/LogoutButton';
 import RecipeList from 'Components/UserViewComponents/RecipeList';
 import UserView from 'Components/UserViewComponents/UserView';
 import GroupView from 'Components/GroupViewComponents/GroupView';
-import { addToken, removeToken } from 'actions';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
@@ -17,22 +16,11 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuthSuccess: token => {
-      dispatch(addToken(token));
-    },
-    onLogout: () => {
-      dispatch(removeToken());
-    }
-  }
-}
 
 class Homepage extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        auth_token: '',
         body_component: 'userview',
         recipe_list: null
       };
@@ -74,7 +62,7 @@ class Homepage extends Component {
           <Grid item xs={12}>
             <img className="pigLogo" src={pig} alt="pig logo"/>
           </Grid>
-            <LoginSignupForm onAuth={this.props.onAuthSuccess}/>
+            <LoginSignupForm />
         </div> 
       );
     } else {
@@ -82,7 +70,7 @@ class Homepage extends Component {
         <div className="chefsalot-home-page">
           <div className="home-page-container">
             {/* TODO have a better way of handling these different body components ... enum? */}
-            <LogoutButton onClick={this.props.onLogout} />
+            <LogoutButton />
             <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
             {this.getBodyComponent()}
           </div>
@@ -92,4 +80,4 @@ class Homepage extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default connect(mapStateToProps)(Homepage);
