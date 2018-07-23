@@ -75,56 +75,49 @@ class RecipeForm extends Component {
 
     render() {
         return (
-            <div>
-                <form>
+            <form>
+                <TextField
+                    id='Title'
+                    label='Name of Dish'
+                    value={this.state.title}
+                    onChange={this.handleFormChange('title')}
+                    margin='normal'
+                />
+                <div>
                     <TextField
-                        id='Title'
-                        label='Name of Dish'
-                        value={this.state.title}
-                        onChange={this.handleFormChange('title')}
+                        id='Servings'
+                        label='Serves'
+                        value={this.state.servings}
+                        onChange={this.handleFormChange('servings')}
                         margin='normal'
                     />
-                    <div>
-                        <TextField
-                            id='Servings'
-                            label='Serves'
-                            value={this.state.servings}
-                            onChange={this.handleFormChange('servings')}
-                            margin='normal'
-                        />
-                        <TextField
-                            id='Cooktime'
-                            label='Cooktime'
-                            value={this.state.cookTime}
-                            onChange={this.handleFormChange('cooktime')}
-                            margin='normal'
-                        />
-                    </div>
-                    <IngredientList 
-                      state={this.state}
-                      toggleAddIngredientButton={this.toggleAddIngredientButton}
-                      addIngredient={this.addIngredient}
-                      deleteIngredient={this.deleteIngredient}
-                      handleFormChange={this.handleFormChange}
-                      editIngredient={this.editIngredient}
-                    />
                     <TextField
-                        id='Title'
-                        label='Name of Dish'
-                        value={this.state.title}
-                        onChange={this.handleFormChange('title')}
+                        id='Cooktime'
+                        label='Cooktime'
+                        value={this.state.cookTime}
+                        onChange={this.handleFormChange('cooktime')}
                         margin='normal'
                     />
-                </form>
-                {/* <label>
-                Directions: 
-                <textarea onChange={this.handleDirectionsChange} form="recipeForm">
-                </textarea>
-            </label>
-            <button onClick={this.handleRecipeFormSubmit}>
-                Add Recipe!
-            </button> */}
-            </div>
+                </div>
+                <IngredientList
+                    state={this.state}
+                    toggleAddIngredientButton={this.toggleAddIngredientButton}
+                    addIngredient={this.addIngredient}
+                    deleteIngredient={this.deleteIngredient}
+                    handleFormChange={this.handleFormChange}
+                    editIngredient={this.editIngredient}
+                />
+                <TextField
+                    id='Directoins'
+                    label='Directions'
+                    value={this.state.Directions}
+                    multiline
+                    rowsMax='8'
+                    fullWidth
+                    onChange={this.handleFormChange('directions')}
+                    margin='normal'
+                />
+            </form>
         );
     }
 }
