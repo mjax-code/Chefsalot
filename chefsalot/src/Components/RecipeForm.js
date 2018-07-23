@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@material-ui/icons/Delete'
 import CustomTextAndOnClickButton from './CustomTextAndOnClickButton';
 import axios from 'axios';
 
@@ -37,6 +39,15 @@ class RecipeForm extends Component {
 
     }
 
+    deleteIngredient = index => event => {
+        // const stateCopy = this.state.ingredients.slice(0);
+        // stateCopy.splice(index,1);
+        // this.setState({ ingredients: stateCopy });
+        this.setState(prevState => ({
+            ingredients: prevState.ingredients.filter((el, i) => i !== index)
+        }));
+    }
+
     // handleRecipeFormSubmit() {
     //         axios({
     //             method: 'post',
@@ -63,9 +74,6 @@ class RecipeForm extends Component {
     render() {
         return (
             <div>
-                {/* <CustomTextAndOnClickButton 
-                onSubmit={this.handleIngredientAddSubmit}
-                text={'Add Ingedient'} /> */}
                 <form>
                     <TextField
                         id='Title'
@@ -96,7 +104,12 @@ class RecipeForm extends Component {
                                 <ListItem
                                     key={i}
                                 >
-                                    {`${ingredient.quantity} ${ingredient.ingredient}`}
+                                    <ListItemText primary={`${ingredient.quantity} ${ingredient.ingredient}`} />
+                                    <Button
+                                        onClick={this.deleteIngredient(i)}
+                                    >
+                                        <DeleteIcon />
+                                    </Button>
                                 </ListItem>
                             ))}
                             {this.state.addingIngredient ?
