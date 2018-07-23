@@ -4,6 +4,7 @@ import SignupForm from './SignupForm';
 import Button from '@material-ui/core/Button';
 import { addToken } from 'actions';
 import { connect } from 'react-redux';
+import Cookies from 'universal-cookie';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -20,6 +21,13 @@ class LoginSignupForm extends Component {
       login: false
     }
     this.handleEntrySwitch = this.handleEntrySwitch.bind(this);
+    this.handleAuthSucess = this.handleAuthSucess.bind(this);
+  }
+
+  handleAuthSucess(token) {
+    this.props.onAuthSuccess(token);
+    const cookies = new Cookies();
+    cookies.set('token', token);
   }
 
   handleEntrySwitch() {
@@ -29,9 +37,9 @@ class LoginSignupForm extends Component {
   render() {
     let entryForm;
     if (this.state.login) {
-      entryForm = <LoginForm onAuth={this.props.onAuthSuccess} />;
+      entryForm = <LoginForm onAuth={this.handleAuthSucess} />;
     } else {
-      entryForm = <SignupForm onAuth={this.props.onAuthSucess} />
+      entryForm = <SignupForm onAuth={this.handleAuthSucess} />
     }
     
     return (
