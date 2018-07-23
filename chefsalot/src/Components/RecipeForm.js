@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add'
-import DeleteIcon from '@material-ui/icons/Delete'
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import IngredientList from './IngredientList';
 import CustomTextAndOnClickButton from './CustomTextAndOnClickButton';
 import axios from 'axios';
 
@@ -24,6 +22,7 @@ class RecipeForm extends Component {
         };
 
     }
+
     handleFormChange = stateToChange => event => {
         this.setState({ [stateToChange]: event.target.value });
     }
@@ -46,6 +45,9 @@ class RecipeForm extends Component {
         this.setState(prevState => ({
             ingredients: prevState.ingredients.filter((el, i) => i !== index)
         }));
+    }
+    editIngredient = () => {
+        console.log('need to add this functionality')
     }
 
     // handleRecipeFormSubmit() {
@@ -98,48 +100,21 @@ class RecipeForm extends Component {
                             margin='normal'
                         />
                     </div>
-                    <div>
-                        <List>
-                            {this.state.ingredients.map((ingredient, i) => (
-                                <ListItem
-                                    key={i}
-                                >
-                                    <ListItemText primary={`${ingredient.quantity} ${ingredient.ingredient}`} />
-                                    <Button
-                                        onClick={this.deleteIngredient(i)}
-                                    >
-                                        <DeleteIcon />
-                                    </Button>
-                                </ListItem>
-                            ))}
-                            {this.state.addingIngredient ?
-                                <ListItem>
-                                    <TextField
-                                        label='Quantity'
-                                        onChange={this.handleFormChange('ingredientAmount')}
-                                        value={this.state.quantity}
-                                    />
-                                    <TextField
-                                        label='Ingredient'
-                                        onChange={this.handleFormChange('ingredient')}
-                                        value={this.state.ingredient}
-                                    />
-                                    <Button
-                                        onClick={this.addIngredient}
-                                    >
-                                        <AddIcon />
-                                    </Button>
-                                </ListItem> :
-                                <ListItem>
-                                    <Button
-                                        onClick={this.toggleAddIngredientButton}
-                                    >
-                                        Add Ingredient
-                                    </Button>
-                                </ListItem>
-                            }
-                        </List>
-                    </div>
+                    <IngredientList 
+                      state={this.state}
+                      toggleAddIngredientButton={this.toggleAddIngredientButton}
+                      addIngredient={this.addIngredient}
+                      deleteIngredient={this.deleteIngredient}
+                      handleFormChange={this.handleFormChange}
+                      editIngredient={this.editIngredient}
+                    />
+                    <TextField
+                        id='Title'
+                        label='Name of Dish'
+                        value={this.state.title}
+                        onChange={this.handleFormChange('title')}
+                        margin='normal'
+                    />
                 </form>
                 {/* <label>
                 Directions: 
