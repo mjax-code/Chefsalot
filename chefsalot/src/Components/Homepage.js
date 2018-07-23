@@ -8,7 +8,8 @@ import UserView from 'Components/UserViewComponents/UserView'
 import GroupView from 'Components/GroupViewComponents/GroupView'
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-
+import pig from 'static/pig4.png'
+import Grid from '@material-ui/core/Grid';
 
 class Homepage extends Component {
   constructor(props) {
@@ -74,17 +75,14 @@ class Homepage extends Component {
   render() {
     this.refreshAuthToken();
     var token = this.state.auth_token;
-    const style = {
-
-    };
 
     if (token === '') {
       return (
         <div>
-          <img src='/img/pig4.png' alt="pig logo"/>
-          <Paper style= {style} elevation={10} >
+          <Grid item xs={12}>
+            <img className="pigLogo" src={pig} alt="pig logo"/>
+          </Grid>
             <LoginSignupForm onAuth={this.handleAuth}/>
-          </Paper>
         </div> 
       );
     } else {

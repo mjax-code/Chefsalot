@@ -26,10 +26,10 @@ class LoginSignupForm extends Component {
     }
     
     return (
-      <div style={{textAlign: 'center', marginTop: '18%'}}>
+      <div style={{textAlign: 'center'}}>
         {entryForm}
         <div>
-          <Button variant="contained" color="primary" onClick={this.handleEntrySwitch}>
+          <Button color="primary" onClick={this.handleEntrySwitch}>
             {this.state.login ? 'I don\'t have an account' : 'I have an account already'}
           </Button>
         </div>
