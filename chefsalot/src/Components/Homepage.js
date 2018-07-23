@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import pig from 'static/pig4.png'
+import Grid from '@material-ui/core/Grid';
 import LoginSignupForm from 'Components/Authentication/LoginSignupForm';
 import LogoutButton from 'Components/Authentication/LogoutButton';
 import RecipeList from 'Components/UserViewComponents/RecipeList';
@@ -22,7 +26,6 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
-
 
 class Homepage extends Component {
   constructor(props) {
@@ -77,12 +80,12 @@ class Homepage extends Component {
                                                    recipe_list={this.state.recipe_list} 
                                                    token={this.state.auth_token}/>} />
       case "groupview":
-        return <GroupView token={this.state.auth_token}/>
+        return <GroupView token={this.state.auth_token}/> 
       case "recipeview":
         return <RecipeForm token={this.state.auth_token}/>
       default:
         return <UserView />
-    }
+    } 
   }
   
   render() {
@@ -92,6 +95,9 @@ class Homepage extends Component {
     if (token === '') {
       return (
         <div>
+          <Grid item xs={12}>
+            <img className="pigLogo" src={pig} alt="pig logo"/>
+          </Grid>
             <LoginSignupForm onAuth={this.handleAuth}/>
         </div> 
       );

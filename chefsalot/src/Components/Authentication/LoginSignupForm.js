@@ -19,22 +19,18 @@ class LoginSignupForm extends Component {
 
   render() {
     let entryForm;
-    let entryText;
     if (this.state.login) {
       entryForm = <LoginForm onAuth={this.props.onAuth} />;
-      entryText = "Don't have a user? Sign up here :)"
     } else {
       entryForm = <SignupForm onAuth={this.props.onAuth} />
-      entryText = "Already have a user? Log in here :o"
     }
     
     return (
-      <div style={{textAlign: 'center', marginTop: '18%'}}>
+      <div style={{textAlign: 'center'}}>
         {entryForm}
         <div>
-          <span>{entryText}</span>
-          <Button variant="contained" color="primary" onClick={this.handleEntrySwitch}>
-            {this.state.login ? 'Signup' : 'Login'}
+          <Button color="primary" onClick={this.handleEntrySwitch}>
+            {this.state.login ? 'I don\'t have an account' : 'I have an account already'}
           </Button>
         </div>
 

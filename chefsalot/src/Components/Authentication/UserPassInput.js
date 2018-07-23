@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Https from '@material-ui/icons/Https'
+import Grid from '@material-ui/core/Grid';
 
 class UserPassInput extends Component {
   constructor(props) {
@@ -19,11 +26,25 @@ class UserPassInput extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <TextField style={{margin: '10px'}} type='text' label='Username' onChange={this.onUsernameChange} />
-          <TextField style={{margin: '10px'}} type='text' label='Password' onChange={this.onPasswordChange} />
-        </form>
+      <div> 
+      <FormControl>
+        <Grid container fullWidth spacing={12} alignItems="flex-end">
+          <Grid item className="loginIcon">
+            <AccountCircle />
+          </Grid>
+          <Grid item>
+            <TextField fullWidth id="input-with-icon-grid" label="Username" onChange={this.onUsernameChange}/>
+          </Grid>
+        </Grid>
+        <Grid container spacing={12} alignItems="flex-end">
+          <Grid item className="loginIcon">
+            <Https />
+          </Grid>
+          <Grid item>
+            <TextField id="input-with-icon-grid" label="Password" onChange={this.onPasswordChange}/>
+          </Grid>
+        </Grid>
+      </FormControl>
        </div>
     );
   }

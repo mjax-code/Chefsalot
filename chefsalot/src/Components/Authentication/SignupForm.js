@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserPassInput from './UserPassInput';
 import SignupButton from './SignupButton';
+import Grid from '@material-ui/core/Grid';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class SignupForm extends Component {
                 handleUsernameChange={this.handleUsernameChange}
                 handlePasswordChange={this.handlePasswordChange} 
                 />
-            <SignupButton username={this.state.username} password={this.state.password} onAuth={this.props.onAuth} />
+        <SignupButton username={this.state.username} password={this.state.password} onAuth={this.props.onAuth} />
         </div>
     );
   }
