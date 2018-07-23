@@ -1,125 +1,144 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
-import { Input } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add'
 import CustomTextAndOnClickButton from './CustomTextAndOnClickButton';
-import IngredientForm from './IngredientForm';
 import axios from 'axios';
 
 class RecipeForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        ingredients: [],
-        ingredients_key: 0,
-        servings: '',
-        directions: '',
-        cookTime: '',
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: '',
+            ingredients: [],
+            servings: '',
+            directions: '',
+            cookTime: '',
+            ingredient: '',
+            ingredientAmount: '',
+            addingIngredient: false,
+        };
 
-    this.handleIngredientRemove = this.handleIngredientRemove.bind(this);
-    this.handleIngredientAddSubmit =  this.handleIngredientAddSubmit.bind(this);
-    this.handleServingsChange = this.handleServingsChange.bind(this);
-    this.handleCookTimeChange = this.handleCookTimeChange.bind(this);
-    this.handleDirectionsChange = this.handleDirectionsChange.bind(this);
-    this.handleRecipeFormSubmit = this.handleRecipeFormSubmit.bind(this);
-  }
-
-  handleIngredientAddSubmit() {
-      this.setState(
-        {ingredients: this.state.ingredients.concat([{key:
-            <IngredientForm onSubmit={this.handleIngredientRemove} key={this.state.ingredients_key}/>}
-        ]), ingredients_key: this.state.ingredients_key + 1});
-  }
-
-  handleIngredientRemove(key) {
-      this.setState({})
-
-  }
-
-    handleServingsChange(event) {
-        this.setState({ servings: event.target.value });
+    }
+    handleFormChange = stateToChange => event => {
+        this.setState({ [stateToChange]: event.target.value });
     }
 
-    handleCookTimeChange(event) {
-        this.setState({ cookTime: event.target.value });
+    toggleAddIngredientButton = () => {
+        this.setState({ addingIngredient: !this.state.addingIngredient });
     }
 
-    handleDirectionsChange(event) {
-        this.setState({ directions: event.target.value });
+    addIngredient = () => {
+        this.setState({ ingredients: this.state.ingredients.concat([{ ingredient: this.state.ingredient, quantity: this.state.ingredientAmount }]) });
+        this.setState({ ingredient: '', ingredientAmount: '' })
+        this.toggleAddIngredientButton();
+
     }
 
-    handleRecipeFormSubmit() {
-        axios({
-            method: 'post',
-            url: 'http://localhost:8000/recipes/',
-            headers: {'Authorization': 'Token ' + this.props.token},
-        data: {
-            user: 20,
-            ingredients: [
-                {
-                    ingredient: "chicken",
-                    measurement: "1",
-                    quantity: "1"
-                }
-            ],
-            directions: "do it",
-            cook_time: 10,
-            servings: 1,
-            likes: 0,
-            dislikes: 0,
-        }
-      }).then(response => console.log(response)).catch(error => console.log(error.response));
-  }
+    // handleRecipeFormSubmit() {
+    //         axios({
+    //             method: 'post',
+    //             url: 'http://localhost:8000/recipes/',
+    //             headers: {'Authorization': 'Token ' + this.props.token},
+    //         data: {
+    //             user: 20,
+    //             ingredients: [
+    //                 {
+    //                     ingredient: "chicken",
+    //                     measurement: "1",
+    //                     quantity: "1"
+    //                 }
+    //             ],
+    //             directions: "do it",
+    //             cook_time: 10,
+    //             servings: 1,
+    //             likes: 0,
+    //             dislikes: 0,
+    //         }
+    //       }).then(response => console.log(response)).catch(error => console.log(error.response));
+    //   }
 
-  render() {
-    return(
-        <div>
-            <CustomTextAndOnClickButton 
+    render() {
+        return (
+            <div>
+                {/* <CustomTextAndOnClickButton 
                 onSubmit={this.handleIngredientAddSubmit}
-                text={'Add Ingedient'} />
-
-            <IngredientList ingredients={this.state.ingredients} />
-            <form id="recipeForm">
-                <label>
-                    Servings:
-                    <input onChange={this.handleServingsChange} type="text" />
-                </label>
-                <label>
-                    Cook Time:
-                    <input onChange={this.handleCookTimeChange} type="text" />
-                </label>
-            </form>
-            <label>
+                text={'Add Ingedient'} /> */}
+                <form>
+                    <TextField
+                        id='Title'
+                        label='Name of Dish'
+                        value={this.state.title}
+                        onChange={this.handleFormChange('title')}
+                        margin='normal'
+                    />
+                    <div>
+                        <TextField
+                            id='Servings'
+                            label='Serves'
+                            value={this.state.servings}
+                            onChange={this.handleFormChange('servings')}
+                            margin='normal'
+                        />
+                        <TextField
+                            id='Cooktime'
+                            label='Cooktime'
+                            value={this.state.cookTime}
+                            onChange={this.handleFormChange('cooktime')}
+                            margin='normal'
+                        />
+                    </div>
+                    <div>
+                        <List>
+                            {this.state.ingredients.map((ingredient, i) => (
+                                <ListItem
+                                    key={i}
+                                >
+                                    {`${ingredient.quantity} ${ingredient.ingredient}`}
+                                </ListItem>
+                            ))}
+                            {this.state.addingIngredient ?
+                                <ListItem>
+                                    <TextField
+                                        label='Quantity'
+                                        onChange={this.handleFormChange('ingredientAmount')}
+                                        value={this.state.quantity}
+                                    />
+                                    <TextField
+                                        label='Ingredient'
+                                        onChange={this.handleFormChange('ingredient')}
+                                        value={this.state.ingredient}
+                                    />
+                                    <Button
+                                        onClick={this.addIngredient}
+                                    >
+                                        <AddIcon />
+                                    </Button>
+                                </ListItem> :
+                                <ListItem>
+                                    <Button
+                                        onClick={this.toggleAddIngredientButton}
+                                    >
+                                        Add Ingredient
+                                    </Button>
+                                </ListItem>
+                            }
+                        </List>
+                    </div>
+                </form>
+                {/* <label>
                 Directions: 
                 <textarea onChange={this.handleDirectionsChange} form="recipeForm">
                 </textarea>
             </label>
             <button onClick={this.handleRecipeFormSubmit}>
                 Add Recipe!
-            </button>
-            {this.props.token}
+            </button> */}
             </div>
-    );
-  }
-}
-
-function IngredientList(props) {
-    const ingredients = props.ingredients.map (
-        (ingredient) => <IngredientListItem i={ingredient}/>)
-    return (
-        <ul>
-            {ingredients}
-        </ul>
-    );
-}
-
-function IngredientListItem (props) {
-    return (
-        <li>{props.i}</li>
-    );
+        );
+    }
 }
 
 export default RecipeForm;
