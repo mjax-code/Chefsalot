@@ -5,7 +5,7 @@ import cleaver from 'static/cleaver.png'
 function LoadingSpinner(props) {
     return (
         <div>
-            <img className="loading-spinner" src={cleaver}/>
+            <img className="loading-spinner" src={cleaver} />
         </div>
     );
 }

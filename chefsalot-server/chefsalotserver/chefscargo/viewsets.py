@@ -63,6 +63,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         try:
             with transaction.atomic():
+                request.data['user'] = request.user.id
                 recipe_serializer = RecipeSerializer(data=request.data)
                 if not recipe_serializer.is_valid():
                     raise ValueError(recipe_serializer.errors)
