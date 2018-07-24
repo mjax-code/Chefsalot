@@ -50,32 +50,32 @@ class RecipeForm extends Component {
         console.log('need to add this functionality')
     }
 
-    // handleRecipeFormSubmit() {
-    //         axios({
-    //             method: 'post',
-    //             url: 'http://localhost:8000/recipes/',
-    //             headers: {'Authorization': 'Token ' + this.props.token},
-    //         data: {
-    //             user: 20,
-    //             ingredients: [
-    //                 {
-    //                     ingredient: "chicken",
-    //                     measurement: "1",
-    //                     quantity: "1"
-    //                 }
-    //             ],
-    //             directions: "do it",
-    //             cook_time: 10,
-    //             servings: 1,
-    //             likes: 0,
-    //             dislikes: 0,
-    //         }
-    //       }).then(response => console.log(response)).catch(error => console.log(error.response));
-    //   }
+    handleRecipeSubmit() {
+            axios({
+                method: 'post',
+                url: 'http://localhost:8000/recipes/',
+                headers: {'Authorization': 'Token ' + this.props.token},
+            data: {
+                user: 20,
+                ingredients: [
+                    {
+                        ingredient: "chicken",
+                        measurement: "1",
+                        quantity: "1"
+                    }
+                ],
+                directions: "do it",
+                cook_time: 10,
+                servings: 1,
+                likes: 0,
+                dislikes: 0,
+            }
+          }).then(response => console.log(response)).catch(error => console.log(error.response));
+      }
 
     render() {
         return (
-            <form>
+            <div>
                 <TextField
                     id='Title'
                     label='Name of Dish'
@@ -117,7 +117,12 @@ class RecipeForm extends Component {
                     onChange={this.handleFormChange('directions')}
                     margin='normal'
                 />
-            </form>
+                <Button
+                  onClick={this.handleRecipeSubmit}
+                >
+                    Add Recipe!
+                </Button>
+            </div>
         );
     }
 }
