@@ -5,7 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 function GenericListDisplay(props) {
-    const items = props.items.map((item) => <ListItem>
+    const items = props.items.map((item) => <ListItem key={props.getKey(item)}>
                                                 <ListItemText primary = {props.getValue(item)}></ListItemText>
                                             </ListItem>);
     return (

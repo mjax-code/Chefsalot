@@ -20,18 +20,20 @@ class GroupList extends Component {
             method: 'get',
             url: 'http://localhost:8000/groups/',
             headers: {'Authorization': 'Token ' + this.props.token},
-        }).then(response => 
-            this.props.handleGroupsLoad(response.data)
-        ).then(() => 
-            this.setState({loading: false}
-        ));
+        }).then(response => {
+            this.props.handleGroupsLoad(response.data);
+            this.setState({loading: false});
+        })
       }
-//   .catch(error => console.log(error.response));
   }
 
   render () {
       return (
-        this.state.loading ? <LoadingSpinner /> : <GenericListDisplay listLabel="Groups" items={this.props.group_list} getValue={group => group.name} />
+        this.state.loading ? 
+            <LoadingSpinner /> : 
+            <GenericListDisplay listLabel="Groups" items={this.props.group_list} 
+                getValue={group => group.name} 
+                getKey={group => group.id}  />
       );
   }
 }
