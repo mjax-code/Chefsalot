@@ -115,9 +115,9 @@ class GroupViewSet(viewsets.ModelViewSet):
         return group_serializer.save()
 
     def create(self, request, *args, **kwargs):
-        start = time.time()
+        create_start = time.time()
         try:
-            logger.info("Adding group")
+            logger.info("Start - create group")
             with transaction.atomic():
                 if 'group' not in request.data:
                     return Response("Group field required", status.HTTP_400_BAD_REQUEST)
@@ -127,13 +127,20 @@ class GroupViewSet(viewsets.ModelViewSet):
                 request.data['user'] = request.user.id
                 request.data['is_group_admin'] = True
                 request.data['is_creator'] = True
+
+                serialize_start = time.time()
+                logger.info("Start - serializing group")
                 group_user_serializer = GroupUserSerializer(data=request.data)
+                logger.info("End - group serialzed in %f seconds", time.time() - serialize_start)
+
                 if not group_user_serializer.is_valid():
                     raise ValueError(group_user_serializer.errors)
                 save_start = time.time()
-                logger.info("Saving group")
+
+                logger.info("Start - saving group")
                 group_user = group_user_serializer.save()
-                logger.info("Group saved in %d seconds", time.time() - save_start)
+                logger.info("End - group saved in %f seconds", time.time() - save_start)
+
                 response_obj = {"message": "Group created", "group": {"name": group_user.group.name}}
                 return Response(response_obj, status.HTTP_200_OK)
 
@@ -141,7 +148,7 @@ class GroupViewSet(viewsets.ModelViewSet):
             return HttpResponseBadRequest(e)
 
         finally:
-            logger.info("Group create finished (may have failed) in %d seconds", time.time() - start)
+            logger.info("End - group created (may have failed) in %f seconds", time.time() - create_start)
 
 
 
