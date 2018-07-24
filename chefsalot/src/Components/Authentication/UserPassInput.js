@@ -26,9 +26,9 @@ class UserPassInput extends Component {
 
   render() {
     return (
-      <div> 
+      <div className="loginFields"> 
       <FormControl>
-        <Grid container fullWidth spacing={12} alignItems="flex-end">
+        <Grid container alignItems="flex-end">
           <Grid item className="loginIcon">
             <AccountCircle />
           </Grid>
@@ -43,7 +43,7 @@ class UserPassInput extends Component {
           <Grid item>
             <TextField id="input-with-icon-grid" label="Password" onChange={this.onPasswordChange}/>
           </Grid>
-        </Grid>
+       </Grid>
       </FormControl>
        </div>
     );

@@ -21,7 +21,7 @@ class SignupButton extends Component {
 
   render() {
     return (
-          <Button style={{margin: '10px'}} variant="contained" color="primary" onClick={this.handleSignupSubmit}>
+          <Button style={{margin: '20px'}} variant="contained" color="primary" onClick={this.handleSignupSubmit}>
             Sign Up!!
           </Button>
     );
