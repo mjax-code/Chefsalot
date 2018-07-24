@@ -5,6 +5,10 @@ from django.http import HttpResponseBadRequest
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+import logging
+import time
+
+logger = logging.getLogger('chefscargo')
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -111,7 +115,9 @@ class GroupViewSet(viewsets.ModelViewSet):
         return group_serializer.save()
 
     def create(self, request, *args, **kwargs):
+        start = time.time()
         try:
+            logger.info("Adding group")
             with transaction.atomic():
                 if 'group' not in request.data:
                     return Response("Group field required", status.HTTP_400_BAD_REQUEST)
@@ -124,13 +130,18 @@ class GroupViewSet(viewsets.ModelViewSet):
                 group_user_serializer = GroupUserSerializer(data=request.data)
                 if not group_user_serializer.is_valid():
                     raise ValueError(group_user_serializer.errors)
+                save_start = time.time()
+                logger.info("Saving group")
                 group_user = group_user_serializer.save()
+                logger.info("Group saved in %d seconds", time.time() - save_start)
                 response_obj = {"message": "Group created", "group": {"name": group_user.group.name}}
-
-            return Response(response_obj, status.HTTP_200_OK)
+                return Response(response_obj, status.HTTP_200_OK)
 
         except ValueError as e:
             return HttpResponseBadRequest(e)
+
+        finally:
+            logger.info("Group create finished (may have failed) in %d seconds", time.time() - start)
 
 
 
