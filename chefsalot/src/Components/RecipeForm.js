@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import IngredientList from './IngredientList';
+import { withStyles } from '@material-ui/core/styles'
 import CustomTextAndOnClickButton from './CustomTextAndOnClickButton';
 import axios from 'axios';
+
+
+const styles = theme => ({
+  root: {
+      flexGrow: 1,
+  },
+
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }
+})
 
 class RecipeForm extends Component {
     constructor(props) {
@@ -20,9 +34,8 @@ class RecipeForm extends Component {
             ingredientAmount: '',
             addingIngredient: false,
         };
-
     }
-
+    
     handleFormChange = stateToChange => event => {
         this.setState({ [stateToChange]: event.target.value });
     }
@@ -75,7 +88,10 @@ class RecipeForm extends Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.classes.root}>
+                <Paper className={this.props.classes.paper}> 
+                <Grid container spacing={8}>
+                <Grid item xs={12}>
                 <TextField
                     id='Title'
                     label='Name of Dish'
@@ -83,7 +99,8 @@ class RecipeForm extends Component {
                     onChange={this.handleFormChange('title')}
                     margin='normal'
                 />
-                <div>
+                </Grid>
+                <Grid item xs={12} sm={6}>
                     <TextField
                         id='Servings'
                         label='Serves'
@@ -91,6 +108,9 @@ class RecipeForm extends Component {
                         onChange={this.handleFormChange('servings')}
                         margin='normal'
                     />
+                </Grid>
+                <Paper >
+                <Grid item xs={12} sm={6}>
                     <TextField
                         id='Cooktime'
                         label='Cooktime'
@@ -98,7 +118,9 @@ class RecipeForm extends Component {
                         onChange={this.handleFormChange('cooktime')}
                         margin='normal'
                     />
-                </div>
+                </Grid>
+                </Paper>
+                <Grid item xs={12}>
                 <IngredientList
                     state={this.state}
                     toggleAddIngredientButton={this.toggleAddIngredientButton}
@@ -107,6 +129,8 @@ class RecipeForm extends Component {
                     handleFormChange={this.handleFormChange}
                     editIngredient={this.editIngredient}
                 />
+                </Grid>
+                <Grid item xs={12}>
                 <TextField
                     id='Directoins'
                     label='Directions'
@@ -117,14 +141,19 @@ class RecipeForm extends Component {
                     onChange={this.handleFormChange('directions')}
                     margin='normal'
                 />
+                </Grid>
+                <Grid item xs={6}>
                 <Button
                   onClick={this.handleRecipeSubmit}
                 >
                     Add Recipe
                 </Button>
+                </Grid>
+                </Grid>
+                </Paper> 
             </div>
         );
     }
 }
 
-export default RecipeForm;
+export default withStyles(styles)(RecipeForm);
