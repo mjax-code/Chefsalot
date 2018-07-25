@@ -50,7 +50,7 @@ class RecipeForm extends Component {
         console.log('need to add this functionality')
     }
 
-    handleRecipeSubmit() {
+    handleRecipeSubmit = () => {
             axios({
                 method: 'post',
                 url: 'http://localhost:8000/recipes/',
@@ -120,7 +120,7 @@ class RecipeForm extends Component {
                 <Button
                   onClick={this.handleRecipeSubmit}
                 >
-                    Add Recipe!
+                    Add Recipe
                 </Button>
             </div>
         );
