@@ -30,7 +30,7 @@ class SignupForm extends Component {
                 handleUsernameChange={this.handleUsernameChange}
                 handlePasswordChange={this.handlePasswordChange} 
                 />
-        <SignupButton username={this.state.username} password={this.state.password} onAuth={this.props.onAuth} />
+            <SignupButton username={this.state.username} password={this.state.password} onAuth={this.props.onAuth} />
         </div>
     );
   }

@@ -5,6 +5,10 @@ from django.http import HttpResponseBadRequest
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+import logging
+import time
+
+logger = logging.getLogger('chefscargo')
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -111,7 +115,9 @@ class GroupViewSet(viewsets.ModelViewSet):
         return group_serializer.save()
 
     def create(self, request, *args, **kwargs):
+        create_start = time.time()
         try:
+            logger.info("Start - create group")
             with transaction.atomic():
                 if 'group' not in request.data:
                     return Response("Group field required", status.HTTP_400_BAD_REQUEST)
@@ -121,16 +127,28 @@ class GroupViewSet(viewsets.ModelViewSet):
                 request.data['user'] = request.user.id
                 request.data['is_group_admin'] = True
                 request.data['is_creator'] = True
+
+                serialize_start = time.time()
+                logger.info("Start - serializing group")
                 group_user_serializer = GroupUserSerializer(data=request.data)
+                logger.info("End - group serialzed in %f seconds", time.time() - serialize_start)
+
                 if not group_user_serializer.is_valid():
                     raise ValueError(group_user_serializer.errors)
-                group_user = group_user_serializer.save()
-                response_obj = {"message": "Group created", "group": {"name": group_user.group.name}}
+                save_start = time.time()
 
-            return Response(response_obj, status.HTTP_200_OK)
+                logger.info("Start - saving group")
+                group_user = group_user_serializer.save()
+                logger.info("End - group saved in %f seconds", time.time() - save_start)
+
+                response_obj = {"message": "Group created", "group": {"name": group_user.group.name}}
+                return Response(response_obj, status.HTTP_200_OK)
 
         except ValueError as e:
             return HttpResponseBadRequest(e)
+
+        finally:
+            logger.info("End - group created (may have failed) in %f seconds", time.time() - create_start)
 
 
 

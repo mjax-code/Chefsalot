@@ -61,6 +61,7 @@ class Homepage extends Component {
         <div>
           <Grid item xs={12}>
             <img className="pigLogo" src={pig} alt="pig logo"/>
+            <h1 className="textLogo"> Chefsalot </h1>
           </Grid>
             <LoginSignupForm />
         </div> 
