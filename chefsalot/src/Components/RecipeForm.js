@@ -8,18 +8,21 @@ import { withStyles } from '@material-ui/core/styles'
 import CustomTextAndOnClickButton from './CustomTextAndOnClickButton';
 import axios from 'axios';
 
-
 const styles = theme => ({
-  root: {
-      flexGrow: 1,
-  },
+    root: {
+        flexGrow: 1,
+    },
 
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }
+    paper: {
+        padding: 16,//theme.spacing.unit * 2,
+        textAlign: 'left',
+        color: theme.palette.text.secondary,
+    }
 })
+
+const StyledPaper = withStyles(styles)(({ classes, children }) => (
+    <Paper className={classes.paper}>{children}</Paper>
+))
 
 class RecipeForm extends Component {
     constructor(props) {
@@ -35,7 +38,7 @@ class RecipeForm extends Component {
             addingIngredient: false,
         };
     }
-    
+
     handleFormChange = stateToChange => event => {
         this.setState({ [stateToChange]: event.target.value });
     }
@@ -64,10 +67,10 @@ class RecipeForm extends Component {
     }
 
     handleRecipeSubmit = () => {
-            axios({
-                method: 'post',
-                url: 'http://localhost:8000/recipes/',
-                headers: {'Authorization': 'Token ' + this.props.token},
+        axios({
+            method: 'post',
+            url: 'http://localhost:8000/recipes/',
+            headers: { 'Authorization': 'Token ' + this.props.token },
             data: {
                 user: 20,
                 ingredients: [
@@ -83,74 +86,76 @@ class RecipeForm extends Component {
                 likes: 0,
                 dislikes: 0,
             }
-          }).then(response => console.log(response)).catch(error => console.log(error.response));
-      }
+        }).then(response => console.log(response)).catch(error => console.log(error.response));
+    }
 
     render() {
         return (
             <div className={this.props.classes.root}>
-                <Paper className={this.props.classes.paper}> 
-                <Grid container spacing={8}>
-                <Grid item xs={12}>
-                <TextField
-                    id='Title'
-                    label='Name of Dish'
-                    value={this.state.title}
-                    onChange={this.handleFormChange('title')}
-                    margin='normal'
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        id='Servings'
-                        label='Serves'
-                        value={this.state.servings}
-                        onChange={this.handleFormChange('servings')}
-                        margin='normal'
-                    />
-                </Grid>
-                <Paper >
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        id='Cooktime'
-                        label='Cooktime'
-                        value={this.state.cookTime}
-                        onChange={this.handleFormChange('cooktime')}
-                        margin='normal'
-                    />
-                </Grid>
-                </Paper>
-                <Grid item xs={12}>
-                <IngredientList
-                    state={this.state}
-                    toggleAddIngredientButton={this.toggleAddIngredientButton}
-                    addIngredient={this.addIngredient}
-                    deleteIngredient={this.deleteIngredient}
-                    handleFormChange={this.handleFormChange}
-                    editIngredient={this.editIngredient}
-                />
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                    id='Directoins'
-                    label='Directions'
-                    value={this.state.Directions}
-                    multiline
-                    rowsMax='8'
-                    fullWidth
-                    onChange={this.handleFormChange('directions')}
-                    margin='normal'
-                />
-                </Grid>
-                <Grid item xs={6}>
-                <Button
-                  onClick={this.handleRecipeSubmit}
-                >
-                    Add Recipe
+                <StyledPaper>
+                    <Grid container spacing={8}>
+                        <Grid item xs={12}>
+                            <TextField
+                                id='Title'
+                                label='Name of Dish'
+                                value={this.state.title}
+                                onChange={this.handleFormChange('title')}
+                                margin='normal'
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id='Servings'
+                                label='Serves'
+                                value={this.state.servings}
+                                onChange={this.handleFormChange('servings')}
+                                margin='normal'
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id='Cooktime'
+                                label='Cooktime'
+                                value={this.state.cookTime}
+                                onChange={this.handleFormChange('cooktime')}
+                                margin='normal'
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                            <StyledPaper >
+                                <IngredientList
+                                    state={this.state}
+                                    toggleAddIngredientButton={this.toggleAddIngredientButton}
+                                    addIngredient={this.addIngredient}
+                                    deleteIngredient={this.deleteIngredient}
+                                    handleFormChange={this.handleFormChange}
+                                    editIngredient={this.editIngredient}
+                                />
+                            </StyledPaper>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id='Directoins'
+                                label='Directions'
+                                value={this.state.Directions}
+                                multiline
+                                rowsMax='8'
+                                fullWidth
+                                onChange={this.handleFormChange('directions')}
+                                margin='normal'
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button
+                                variant='contained'
+                                color='primary'
+                                onClick={this.handleRecipeSubmit}
+                            >
+                                Add Recipe
                 </Button>
-                </Grid>
-                </Grid>
-                </Paper> 
+                        </Grid>
+                    </Grid>
+                </StyledPaper>
             </div>
         );
     }

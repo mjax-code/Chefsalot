@@ -48,6 +48,8 @@ const IngredientList = props => {
         </ListItem> :
         <ListItem>
           <Button
+            variant='contained'
+            color='primary'
             onClick={props.toggleAddIngredientButton}
           >
             Add Ingredient
