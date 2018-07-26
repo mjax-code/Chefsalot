@@ -30,7 +30,8 @@ class GroupView extends Component {
     render() {
         let groupContent;
         if (this.state.showJoinGroup) {
-            groupContent = <JoinGroupForm handleJoinGroupButtonClick={this.handleJoinGroupButtonClick} />;
+            groupContent = <JoinGroupForm handleJoinGroupButtonClick={this.handleJoinGroupButtonClick}
+                                          token={this.props.token} />;
         } else {
             groupContent = <div>
                 <GroupList group_list={this.state.groups} handleGroupsLoad={this.handleGroupsLoad} 
