@@ -42,7 +42,7 @@ class Recipe(models.Model):
 
 
 class IngredientQuantity(models.Model):
-    quantity = models.CharField(max_length=32)
+    quantity = models.FloatField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     measurement = models.CharField(max_length=32, blank=True)
