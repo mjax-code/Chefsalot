@@ -35,6 +35,7 @@ class RecipeForm extends Component {
             cookTime: '',
             ingredient: '',
             ingredientAmount: '',
+            measurement: '',
             addingIngredient: false,
         };
     }
@@ -48,7 +49,7 @@ class RecipeForm extends Component {
     }
 
     addIngredient = () => {
-        this.setState({ ingredients: this.state.ingredients.concat([{ ingredient: this.state.ingredient, quantity: this.state.ingredientAmount }]) });
+        this.setState({ ingredients: this.state.ingredients.concat([{ ingredient: this.state.ingredient, measurement: this.state.measurement, quantity: this.state.ingredientAmount }]) });
         this.setState({ ingredient: '', ingredientAmount: '' })
         this.toggleAddIngredientButton();
 
@@ -66,23 +67,44 @@ class RecipeForm extends Component {
         console.log('need to add this functionality')
     }
 
+    //TODO Make sure user input is correct format 
+    // handleRecipeSubmit = () => {
+    //     axios({
+    //         method: 'post',
+    //         url: 'http://localhost:8000/recipes/',
+    //         headers: { 'Authorization': 'Token ' + this.props.token },
+    //         data: {
+    //             ingredients: [
+    //                 {
+    //                     ingredient: "chicken",
+    //                     measurement: "1",
+    //                     quantity: "1"
+    //                 }
+    //             ],
+    //             directions: "do it",
+    //             cook_time: 10,
+    //             servings: 1,
+    //             likes: 0,
+    //             dislikes: 0,
+    //         }
+    //     }).then(response => console.log(response)).catch(error => console.log(error.response));
+    // }
     handleRecipeSubmit = () => {
         axios({
             method: 'post',
             url: 'http://localhost:8000/recipes/',
             headers: { 'Authorization': 'Token ' + this.props.token },
             data: {
-                user: 20,
                 ingredients: [
                     {
-                        ingredient: "chicken",
-                        measurement: "1",
-                        quantity: "1"
+                        ingredient: this.state.ingredient,
+                        measurement: this.state.measurement,
+                        quantity: this.state.ingredientAmount
                     }
                 ],
-                directions: "do it",
-                cook_time: 10,
-                servings: 1,
+                directions: this.state.directions,
+                cook_time: this.state.cookTime,
+                servings: this.state.servings,
                 likes: 0,
                 dislikes: 0,
             }
@@ -117,7 +139,7 @@ class RecipeForm extends Component {
                                 id='Cooktime'
                                 label='Cooktime'
                                 value={this.state.cookTime}
-                                onChange={this.handleFormChange('cooktime')}
+                                onChange={this.handleFormChange('cookTime')}
                                 margin='normal'
                             />
                         </Grid>

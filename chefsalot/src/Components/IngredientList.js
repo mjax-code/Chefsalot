@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
+//TODO Make sure user input is correct format 
 const IngredientList = props => {
   return (
     <List>
@@ -15,7 +16,7 @@ const IngredientList = props => {
         <ListItem
           key={i}
         >
-          <ListItemText primary={`${ingredient.quantity} ${ingredient.ingredient}`} />
+          <ListItemText primary={`${ingredient.quantity} ${ingredient.measurement} ${ingredient.ingredient}`} />
           <Button
             onClick={props.editIngredient}
           >
@@ -34,6 +35,11 @@ const IngredientList = props => {
             label='Quantity'
             onChange={props.handleFormChange('ingredientAmount')}
             value={props.state.ingredientAmount}
+          />
+          <TextField
+            label='Measurement'
+            onChange={props.handleFormChange('measurement')}
+            value={props.state.measurement}
           />
           <TextField
             label='Ingredient'
