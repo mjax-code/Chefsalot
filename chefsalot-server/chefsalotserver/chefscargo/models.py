@@ -7,7 +7,6 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     pass
 
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=64, primary_key=True)
     flavor_profile = models.CharField(max_length=16, blank=True)
@@ -17,6 +16,10 @@ class Group(models.Model):
     name = models.CharField(max_length=32)
     user = models.ManyToManyField(User, through='GroupUser') # Database level validation for composite key? name + creator
 
+class GroupRequest(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
 
 class GroupUser(models.Model): # TODO consider changing this name
     user = models.ForeignKey(User, on_delete=models.CASCADE)
