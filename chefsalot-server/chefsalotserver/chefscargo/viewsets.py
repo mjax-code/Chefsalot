@@ -94,6 +94,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+    def list(self, request, *args, **kwargs):
+        query_set = Group.objects.all()
+        if 'user_id' in request.query_params:
+            query_set = query_set.filter(user__id=request.query_params['user_id'])
+        else:
+            query_set = self.get_queryset()
+        serializer = self.get_serializer(query_set, many=True)
+        return Response(serializer.data)
+
     def get_queryset(self):
         queryset = Group.objects.all()
         if self.request.user.is_superuser:
