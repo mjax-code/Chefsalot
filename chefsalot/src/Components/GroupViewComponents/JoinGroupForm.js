@@ -11,7 +11,7 @@ class JoinGroupForm extends Component {
             users: null,
             selectedUserOption: null,
             groups: null,
-            selectedUserOption: null,
+            selectedGroupOption: null,
             loading: true,
             userGroupsLoaded: false
         }
@@ -30,7 +30,7 @@ class JoinGroupForm extends Component {
       }
     }
 
-    handleOptionChange = (optionType) => (callback) => ( selectedOption ) => {
+    handleOptionChange = ( optionType ) => ( callback ) => ( selectedOption ) => {
         this.setState({[optionType]: selectedOption });
         if (typeof callback === 'function')
             callback(selectedOption);
@@ -61,6 +61,7 @@ class JoinGroupForm extends Component {
                     <UserSearch 
                         userOptions={this.convertUsersToOptions(this.state.users)}
                         handleUserOptionChange={ this.handleOptionChange('selectedUserOption')((user) => {
+                            this.setState({userGroupsLoaded: false, selectedGroupOption: null});
                             axios({
                                 method: 'get',
                                 headers: {'Authorization': 'Token ' + this.props.token},
