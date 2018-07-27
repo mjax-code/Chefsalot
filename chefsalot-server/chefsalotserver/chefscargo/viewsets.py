@@ -13,6 +13,7 @@ logger = logging.getLogger('chefscargo')
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
+
     serializer_class = UserSerializer
     permission_classes = [
         permissions.AllowAny
@@ -85,6 +86,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return HttpResponseBadRequest(e)
 
 
+
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
@@ -104,11 +106,8 @@ class GroupViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def get_queryset(self):
-        queryset = Group.objects.all()
-        if self.request.user.is_superuser:
-            return queryset
-        else:
-            return queryset.filter(user__id=self.request.user.id)
+        user = self.request.user
+        return user.group_set.all()
 
     def create_group(self, user, group):
         qs = GroupUser.objects.all()
