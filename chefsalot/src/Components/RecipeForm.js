@@ -50,7 +50,7 @@ class RecipeForm extends Component {
 
     addIngredient = () => {
         this.setState({ ingredients: this.state.ingredients.concat([{ ingredient: this.state.ingredient, measurement: this.state.measurement, quantity: this.state.ingredientAmount }]) });
-        this.setState({ ingredient: '', ingredientAmount: '' })
+        this.setState({ ingredient: '', measurement: '', ingredientAmount: '' })
         this.toggleAddIngredientButton();
 
     }
