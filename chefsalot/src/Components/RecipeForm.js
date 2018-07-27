@@ -50,7 +50,7 @@ class RecipeForm extends Component {
 
     addIngredient = () => {
         this.setState({ ingredients: this.state.ingredients.concat([{ ingredient: this.state.ingredient, measurement: this.state.measurement, quantity: this.state.ingredientAmount }]) });
-        this.setState({ ingredient: '', ingredientAmount: '' })
+        this.setState({ ingredient: '', measurement: '', ingredientAmount: '' })
         this.toggleAddIngredientButton();
 
     }
@@ -95,13 +95,7 @@ class RecipeForm extends Component {
             url: 'http://localhost:8000/recipes/',
             headers: { 'Authorization': 'Token ' + this.props.token },
             data: {
-                ingredients: [
-                    {
-                        ingredient: this.state.ingredient,
-                        measurement: this.state.measurement,
-                        quantity: this.state.ingredientAmount
-                    }
-                ],
+                ingredients: this.state.ingredients, 
                 directions: this.state.directions,
                 cook_time: this.state.cookTime,
                 servings: this.state.servings,

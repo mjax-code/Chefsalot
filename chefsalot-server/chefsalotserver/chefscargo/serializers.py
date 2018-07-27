@@ -1,7 +1,11 @@
-from chefscargo.models import User, Recipe, IngredientQuantity, Ingredient, Group, GroupUser
+from chefscargo.models import User, Recipe, IngredientQuantity, Ingredient, Group, GroupUser, GroupRequest
 from rest_framework import serializers
 
-
+class GroupRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupRequest
+        fields = ('sender', 'receiver','group')
+  
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
