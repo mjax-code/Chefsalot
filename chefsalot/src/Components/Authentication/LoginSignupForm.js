@@ -41,7 +41,7 @@ class LoginSignupForm extends Component {
     } else {
       entryForm = <SignupForm onAuth={this.handleAuthSucess} />
     }
-    
+
     return (
       <div style={{textAlign: 'center'}}>
         {entryForm}

@@ -42,29 +42,31 @@ class Homepage extends Component {
     switch(this.state.body_component) {
       case "userview":
     return <UserView recipe_list_view={<RecipeList onRecipeLoad={this.handleRecipeLoad}
-                                                   recipe_list={this.state.recipe_list} 
+                                                   recipe_list={this.state.recipe_list}
                                                    token={this.props.auth_token}/>} />
       case "groupview":
-        return <GroupView token={this.props.auth_token}/> 
+        return <GroupView token={this.props.auth_token}/>
       case "recipeview":
         return <RecipeForm token={this.props.auth_token}/>
       default:
         return <UserView />
     } 
   }
-  
+
   render() {
     var token = this.props.auth_token;
 
     if (token === '') {
       return (
-        <div>
-          <Grid item xs={12}>
-            <img className="pigLogo" src={pig} alt="pig logo"/>
-            <h1 className="textLogo"> Chefsalot </h1>
-          </Grid>
+        <div className="chefsalot-login-page">
+          <div className="login-form-container">
+            <Grid item xs={12}>
+              <img className="pigLogo" src={pig} alt="pig logo"/>
+              <h1 className="textLogo"> Chefsalot </h1>
+            </Grid>
             <LoginSignupForm />
-        </div> 
+          </div>
+        </div>
       );
     } else {
       return(
