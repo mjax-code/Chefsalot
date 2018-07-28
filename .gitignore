@@ -1,6 +1,9 @@
 # dependencies
 /node_modules
 
+# auto generated stuff
+package-lock.json
+
 # testing
 /coverage
 
