@@ -36,7 +36,7 @@ class UserPassInput extends Component {
             <TextField fullWidth id="input-with-icon-grid" label="Username" onChange={this.onUsernameChange}/>
           </Grid>
         </Grid>
-        <Grid container spacing={12} alignItems="flex-end">
+        <Grid container spacing={8} alignItems="flex-end">
           <Grid item className="loginIcon">
             <Https />
           </Grid>
