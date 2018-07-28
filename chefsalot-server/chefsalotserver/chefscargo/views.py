@@ -62,5 +62,8 @@ class GroupRequestView(APIView):
       serializer.is_valid()
       serializer.save()
       request_list.append(serializer.data)
-    
+
     return Response("This has been added to GroupRequest: {}".format(request_list))
+
+  def get(self, request):
+    return Response (request.user.id)
