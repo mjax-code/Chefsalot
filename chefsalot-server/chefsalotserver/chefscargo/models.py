@@ -25,6 +25,8 @@ class GroupRequest(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    class Meta:
+        unique_together = (('sender' ,'group', 'receiver'),)
 
 
 class GroupUser(models.Model): # TODO consider changing this name
