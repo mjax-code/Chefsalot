@@ -26,11 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chefscargo',
-    'social_django',
     'rest_framework',
-    'corsheaders',
-    #oauth
     'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +66,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'chefsalotserver.wsgi.application'
 
@@ -119,6 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
@@ -147,22 +146,6 @@ LOGGING = {
     }
 }
 
-NON_FIELD_ERRORS_KEY = 'Field invalid'
-
-AUTHENTICATION_BACKENDS = (
-    # Google OAuth2
-    'social_core.backends.google.GoogleOAuth2',
-
-    # django
-    'django.contrib.auth.backends.ModelBackend',
-)
-# 1069569150262-pairpcdh1s5596qcu8jvrgupgeldfe3r.apps.googleusercontent.com
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'AIzaSyBv7LlFW8qnMT95uUZS6d6STp5IW0A8O6s'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'URbaLOGGtX3GnykNHTD4UR8I'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [ 'email', 'login', ]
-
-SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -176,18 +159,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-SOCIAL_AUTH_PIPELINE = (
-  'social_core.pipeline.social_auth.social_details',
-  'social_core.pipeline.social_auth.social_uid',
-  'social_core.pipeline.social_auth.auth_allowed',
-  'social_core.pipeline.social_auth.social_user',
-  'social_core.pipeline.user.get_username',
-  'social_core.pipeline.social_auth.associate_by_email',
-  'social_core.pipeline.user.create_user',
-  'social_core.pipeline.social_auth.associate_user',
-  'social_core.pipeline.social_auth.load_extra_data',
-  'social_core.pipeline.user.user_details',
-)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

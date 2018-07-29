@@ -4,6 +4,7 @@ from django.db import transaction
 from django.http import HttpResponseBadRequest
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 import logging
 import time
 
@@ -17,6 +18,20 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.AllowAny
     ]
+
+    def create(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                user_serializer = UserSerializer(data=request.data)
+                if not user_serializer.is_valid():
+                    raise ValueError(user_serializer.errors)
+
+                u = user_serializer.save()
+                token = Token.objects.create(user=u)
+                return Response({'user': u.username, 'user_id': u.id, 'token': token.key})
+
+        except ValueError as e:
+            return HttpResponseBadRequest(e)
 
 
 class RecipeViewSet(viewsets.ModelViewSet):

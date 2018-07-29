@@ -3,8 +3,8 @@ import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
 import pig from 'static/pig4.png'
 import Grid from '@material-ui/core/Grid';
-import GoogleLoginForm from 'Components/Authentication/GoogleLoginForm';
-import GoogleLogoutForm from 'Components/Authentication/GoogleLogoutForm';
+import LoginSignupForm from 'Components/Authentication/LoginSignupForm';
+import LogoutButton from 'Components/Authentication/LogoutButton';
 import RecipeList from 'Components/UserViewComponents/RecipeList';
 import UserView from 'Components/UserViewComponents/UserView';
 import GroupView from 'Components/GroupViewComponents/GroupView';
@@ -15,6 +15,7 @@ const mapStateToProps = state => {
     auth_token: state.token
   }
 }
+
 
 class Homepage extends Component {
   constructor(props) {
@@ -36,7 +37,6 @@ class Homepage extends Component {
   handleNav(body_component) {
     this.setState({body_component:body_component});
   }
-
 
   getBodyComponent() {
     switch(this.state.body_component) {
@@ -64,7 +64,7 @@ class Homepage extends Component {
               <img className="pigLogo" src={pig} alt="pig logo"/>
               <h1 className="textLogo"> Chefsalot </h1>
             </Grid>
-            <GoogleLoginForm />
+            <LoginSignupForm />
           </div>
         </div>
       );
@@ -73,7 +73,7 @@ class Homepage extends Component {
         <div className="chefsalot-home-page">
           <div className="home-page-container">
             {/* TODO have a better way of handling these different body components ... enum? */}
-            <GoogleLogoutForm />
+            <LogoutButton />
             <Topbar onNav={this.handleNav} userview="userview" groupview="groupview" recipeview="recipeview" />
             {this.getBodyComponent()}
           </div>
