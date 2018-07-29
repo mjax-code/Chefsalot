@@ -13,7 +13,7 @@ class Search extends Component {
                value={this.props.selectedOption}
                onChange={this.props.handleOptionChange}
                options={this.props.options} /> 
-        )
+        );
     }
 
 }

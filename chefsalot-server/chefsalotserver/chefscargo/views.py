@@ -2,12 +2,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
-from chefscargo.models import User, Group
+from rest_framework.decorators import api_view, permission_classes
+
 from chefscargo.serializers import GroupRequestSerializer, GroupUserSerializer, SocialSerializer
-from django.http import HttpResponseBadRequest
+from chefscargo.models import User, Group, GroupRequest
 from chefsalotserver import settings
 
-from rest_framework.decorators import api_view, permission_classes
+from django.http import HttpResponseBadRequest
+from django.http import JsonResponse
+
 from social_django.utils import psa
 
 from requests.exceptions import HTTPError
@@ -93,12 +96,13 @@ class UserToGroupView(APIView):
 
         return Response("User {} successfully added to group {}".format(ug.user.username, ug.group.name))
 
+#TODO GroupInvitationView --> admin to user
 
 class GroupRequestView(APIView):
   def post(self, request):
     data = request.data
-    if not ('group' in data and 'sender' in data and 'receiver' in data):
-      return HttpResponseBadRequest("missing either 'group', 'sender', or 'receiver' in request object")
+    if not ('group' in data):
+      return HttpResponseBadRequest("missing 'group' in request object")
       
     try:
       group = Group.objects.get(id=request.data["group"])
@@ -116,8 +120,15 @@ class GroupRequestView(APIView):
         "receiver": admin.id
       }
       serializer = GroupRequestSerializer(data=data)
-      serializer.is_valid()
+      if not serializer.is_valid():
+        return HttpResponseBadRequest(list(serializer.errors.values()))
       serializer.save()
       request_list.append(serializer.data)
-    
+      
+
     return Response("This has been added to GroupRequest: {}".format(request_list))
+
+  def get(self, request):
+    group_requests = list(GroupRequest.objects.filter(receiver=request.user.id).values())
+  
+    return JsonResponse({"requests": group_requests, "requestuser": request.user.id})
