@@ -99,6 +99,7 @@ class RecipeForm extends Component {
                 directions: this.state.directions,
                 cook_time: this.state.cookTime,
                 servings: this.state.servings,
+                name: this.state.title,
                 likes: 0,
                 dislikes: 0,
             }

@@ -17,10 +17,9 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet, GroupViewSet
-from chefscargo.views import UserToGroupView
 from rest_framework.authtoken import views as drf_views
-from chefscargo.views import GroupRequestView
+from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet, GroupViewSet
+from chefscargo.views import UserToGroupView, GroupRequestView, exchange_token
 
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -35,9 +34,10 @@ router.register(r'groups', GroupViewSet)
 urlpatterns = [
     url(r'^', include(router.urls)),
     url('admin/', admin.site.urls),
+    url(r'social/(?P<backend>[^/]+)/$', exchange_token),
     url(r'^auth/', drf_views.obtain_auth_token, name='auth'),
-    url(r'user_to_group/', UserToGroupView.as_view(), name='user_to_group'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'user_to_group/', UserToGroupView.as_view(), name='user_to_group'),
     url(r'group-request/', GroupRequestView.as_view(), name='group-request')
 ]
 

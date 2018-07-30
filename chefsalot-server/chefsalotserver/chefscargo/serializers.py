@@ -1,10 +1,12 @@
 from chefscargo.models import User, Recipe, IngredientQuantity, Ingredient, Group, GroupUser, GroupRequest
 from rest_framework import serializers
 
+
 class GroupRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupRequest
         fields = ('sender', 'receiver','group')
+
   
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -61,4 +63,11 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
-
+class SocialSerializer(serializers.Serializer):
+    """
+    Serializer which accepts an OAuth2 access token.
+    """
+    access_token = serializers.CharField(
+        allow_blank=False,
+        trim_whitespace=True,
+    )
