@@ -7,22 +7,23 @@ import { Provider } from 'react-redux';
 import rootReducer from 'reducers';
 import { createStore } from 'redux';
 import Cookies from 'universal-cookie';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 var INITIAL_STATE = {
-    token: ''
+  token: ''
 };
 
 // TODO validate this in a better way... 
 function tokenIsValid(token) {
-    return token != '';
+  return token != '';
 }
 
 function loadInitialState() {
-    var cookies = new Cookies();
-    var token = cookies.get('token');
-    if (tokenIsValid(token)) {
-        INITIAL_STATE.token = token;
-    }
+  var cookies = new Cookies();
+  var token = cookies.get('token');
+  if (tokenIsValid(token)) {
+    INITIAL_STATE.token = token;
+  }
 }
 loadInitialState();
 
@@ -32,10 +33,12 @@ const store = createStore(rootReducer, INITIAL_STATE);
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <CssBaseline />
-        <Homepage />
-      </div>
+      <Router>
+        <div>
+          <CssBaseline />
+          <Homepage />
+        </div>
+      </Router>
     );
   }
 }

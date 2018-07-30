@@ -9,6 +9,7 @@ import RecipeList from 'Components/UserViewComponents/RecipeList';
 import UserView from 'Components/UserViewComponents/UserView';
 import GroupView from 'Components/GroupViewComponents/GroupView';
 import { connect } from 'react-redux';
+import { Link, Route } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
@@ -19,38 +20,38 @@ const mapStateToProps = state => {
 
 class Homepage extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        body_component: 'userview',
-        recipe_list: null
-      };
+    super(props);
+    this.state = {
+      body_component: 'userview',
+      recipe_list: null
+    };
 
-      this.getBodyComponent = this.getBodyComponent.bind(this);
-      this.handleNav = this.handleNav.bind(this);
-      this.handleRecipeLoad  = this.handleRecipeLoad.bind(this);
-    }
+    this.getBodyComponent = this.getBodyComponent.bind(this);
+    this.handleNav = this.handleNav.bind(this);
+    this.handleRecipeLoad = this.handleRecipeLoad.bind(this);
+  }
 
   handleRecipeLoad(recipe_list) {
-    this.setState({recipe_list: recipe_list});
+    this.setState({ recipe_list: recipe_list });
   }
 
   handleNav(body_component) {
-    this.setState({body_component:body_component});
+    this.setState({ body_component: body_component });
   }
 
   getBodyComponent() {
-    switch(this.state.body_component) {
+    switch (this.state.body_component) {
       case "userview":
-    return <UserView recipe_list_view={<RecipeList onRecipeLoad={this.handleRecipeLoad}
-                                                   recipe_list={this.state.recipe_list}
-                                                   token={this.props.auth_token}/>} />
+        return <UserView recipe_list_view={<RecipeList onRecipeLoad={this.handleRecipeLoad}
+          recipe_list={this.state.recipe_list}
+          token={this.props.auth_token} />} />
       case "groupview":
-        return <GroupView token={this.props.auth_token}/>
+        return <GroupView token={this.props.auth_token} />
       case "recipeview":
-        return <RecipeForm token={this.props.auth_token}/>
+        return <RecipeForm token={this.props.auth_token} />
       default:
         return <UserView />
-    } 
+    }
   }
 
   render() {
@@ -61,7 +62,7 @@ class Homepage extends Component {
         <div className="chefsalot-login-page">
           <div className="login-form-container">
             <Grid item xs={12}>
-              <img className="pigLogo" src={pig} alt="pig logo"/>
+              <img className="pigLogo" src={pig} alt="pig logo" />
               <h1 className="textLogo"> Chefsalot </h1>
             </Grid>
             <LoginSignupForm />
@@ -69,7 +70,7 @@ class Homepage extends Component {
         </div>
       );
     } else {
-      return(
+      return (
         <div className="chefsalot-home-page">
           <div className="home-page-container">
             {/* TODO have a better way of handling these different body components ... enum? */}
