@@ -19,7 +19,7 @@ from django.contrib import admin
 from rest_framework import routers
 from rest_framework.authtoken import views as drf_views
 from chefscargo.viewsets import UserViewSet, IngredientViewSet, RecipeViewSet, GroupViewSet
-from chefscargo.views import UserToGroupView, GroupRequestView, exchange_token
+from chefscargo.views import UserToGroupView, GroupRequestView, exchange_token, measurements_view
 
 # Routers provide a way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^auth/', drf_views.obtain_auth_token, name='auth'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'user_to_group/', UserToGroupView.as_view(), name='user_to_group'),
-    url(r'group-request/', GroupRequestView.as_view(), name='group-request')
+    url(r'group-request/', GroupRequestView.as_view(), name='group-request'),
+    url(r'measurements/', measurements_view)
 ]
 

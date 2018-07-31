@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
 
 from chefscargo.serializers import GroupRequestSerializer, GroupUserSerializer, SocialSerializer
-from chefscargo.models import User, Group, GroupRequest
+from chefscargo.models import User, Group, GroupRequest, measurement_choices
 from chefsalotserver import settings
 
 from django.http import HttpResponseBadRequest
@@ -14,6 +14,14 @@ from django.http import JsonResponse
 from social_django.utils import psa
 
 from requests.exceptions import HTTPError
+
+import json
+
+
+@api_view(http_method_names=['GET'])
+def measurements_view(request):
+    measurements_dict = {"measurements": [choice for choice in measurement_choices]}
+    return Response(json.dumps(measurements_dict))
 
 
 @api_view(http_method_names=['POST'])

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
+from enum import Enum
 
 # Create your models here.
 
@@ -52,11 +53,26 @@ class Recipe(models.Model):
     servings = models.IntegerField(blank=True, null=True)
 
 
+class Measurements(Enum):
+    CUP = "cup"
+    QUART = "quart"
+    GALLON = "gallon"
+    TEASPOON = "tsp"
+    TABLESPOON = "tbsp"
+    POUND = "lb"
+    OUNCES = "oz"
+    MILLIGRAMS = "mg"
+    GRAMS = "g"
+
+
+measurement_choices = tuple([(m.name, m.value) for m in Measurements])
+
+
 class IngredientQuantity(models.Model):
     quantity = models.FloatField()
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    measurement = models.CharField(max_length=32, blank=True)
+    measurement = models.CharField(max_length=32, blank=True, choices=measurement_choices)
     prep_descriptor = models.CharField(max_length=64, blank=True)
 
 
