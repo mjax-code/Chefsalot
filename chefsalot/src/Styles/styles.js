@@ -17,8 +17,7 @@ const styles = {
     'fontSize': '16px',
     'fontWeight': 'bold',
     'fontFamily': 'Roboto',
-}
-
+  },
 };
 
 export default styles;

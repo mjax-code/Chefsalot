@@ -1,4 +1,5 @@
 import React from 'react';
+import SimpleSelect from 'Components/GenericComponents/SimpleSelect';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -36,10 +37,17 @@ const IngredientList = props => {
             onChange={props.handleFormChange('ingredientAmount')}
             value={props.state.ingredientAmount}
           />
-          <TextField
+          {/* <TextField
             label='Measurement'
             onChange={props.handleFormChange('measurement')}
             value={props.state.measurement}
+          /> */}
+          <SimpleSelect 
+            choices = {[{value: "test", label:"First Label"}]} 
+            onChange = {props.handleFormChange('measurement')}
+            value={props.state.measurement}
+            domId = "measurement_select"
+            label = "Measurement"
           />
           <TextField
             label='Ingredient'
