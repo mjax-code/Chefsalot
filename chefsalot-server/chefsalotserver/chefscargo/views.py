@@ -19,6 +19,7 @@ import json
 
 
 @api_view(http_method_names=['GET'])
+@permission_classes([AllowAny])
 def measurements_view(request):
     measurements_dict = {"measurements": [choice for choice in measurement_choices]}
     return Response(json.dumps(measurements_dict))

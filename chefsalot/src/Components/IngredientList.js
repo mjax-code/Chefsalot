@@ -8,6 +8,13 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    measurementChoices: state.measurementChoices
+  }
+}
 
 //TODO Make sure user input is correct format 
 const IngredientList = props => {
@@ -43,7 +50,7 @@ const IngredientList = props => {
             value={props.state.measurement}
           /> */}
           <SimpleSelect 
-            choices = {[{value: "test", label:"First Label"}]} 
+            choices = {props.measurementChoices}
             onChange = {props.handleFormChange('measurement')}
             value={props.state.measurement}
             domId = "measurement_select"
@@ -75,4 +82,4 @@ const IngredientList = props => {
   );
 };
 
-export default IngredientList;
+export default connect(mapStateToProps)(IngredientList);

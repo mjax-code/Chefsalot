@@ -8,9 +8,11 @@ import rootReducer from 'reducers';
 import { createStore } from 'redux';
 import Cookies from 'universal-cookie';
 import { BrowserRouter as Router } from 'react-router-dom';
+import axios from 'axios';
 
 var INITIAL_STATE = {
-  token: ''
+  token: '',
+  measurementChoices: []
 };
 
 // TODO validate this in a better way... 
@@ -24,7 +26,16 @@ function loadInitialState() {
   if (tokenIsValid(token)) {
     INITIAL_STATE.token = token;
   }
+  axios({
+      method: 'get',
+      url: 'http://localhost:8000/measurements/',
+  }).then(response => {
+    const measurementsJSON = JSON.parse(response.data)
+    INITIAL_STATE.measurementChoices = 
+      measurementsJSON.measurements.map(measurement => { return {value: measurement[0], label: measurement[1]}});
+  });
 }
+
 loadInitialState();
 
 
