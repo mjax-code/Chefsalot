@@ -5,29 +5,29 @@ from rest_framework.authtoken.models import Token
 
 class ChefscargoAPITestCase(APITestCase):
     def setUp(self):
-        self.username = "alexjackson"
-        user = User(username=self.username)
+        self.base_username = "alexjackson"
+        self.create_user(self.base_username)
+
+    def create_user(self, username):
+        user = User(username=username)
         user.save()
-
-        saved_user = User.objects.get(username=self.username)
-        self.assertEqual(saved_user.username, self.username)
-
-        self.user = saved_user
-        Token.objects.create(user=self.user)
+        Token.objects.create(user=user)
+        return user
 
 
 class GroupEnabledAPITestCase(ChefscargoAPITestCase):
-    def setUp(self):
-        super().setUp()
+    def generate_users_and_groups(self, num_users, num_groups_per_user):
+        self.user_names = []
+        for i in range(num_users):
+            user_i_name = "user" + str(i)
+            self.user_names.append(user_i_name)
+            user_i = self.create_user(user_i_name)
 
-        self.group1name = "group1"
-        group = Group(name=self.group1name)
-        group.save()
+            for j in range(num_groups_per_user):
+                group_ij_name = "group{}{}{}".format(j, "u", i)
+                group_ij = Group(name=group_ij_name)
+                group_ij.save()
 
-        group_user = GroupUser(user=self.user, group=group, is_group_admin=True, is_creator=True)
-        group_user.save()
-
-
-
-
+                group_user_ij = GroupUser(user=user_i, group=group_ij, is_group_admin=True, is_creator=True)
+                group_user_ij.save()
 

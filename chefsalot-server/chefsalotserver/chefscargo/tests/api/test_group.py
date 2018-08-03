@@ -10,35 +10,23 @@ from rest_framework import status
 
 class GroupTest(GroupEnabledAPITestCase):
     def setUp(self):
-        trash_username = "trash_mcgee"
-        trash_user = User(username=trash_username)
-        trash_user.save()
-
-        trash_group_name = "trash_group"
-        trash_group = Group(name=trash_group_name)
-        trash_group.save()
-
-        trash_group_user = GroupUser(user=trash_user, group=trash_group, is_group_admin=True, is_creator=True)
-        trash_group_user.save()
-
+        self.generate_users_and_groups(2, 2)
         super().setUp()
 
     def test_get_groups(self):
-        self.user.refresh_from_db()  # we are using the user throughout many tests - may need to refresh
-
         factory = APIRequestFactory()
-
         url = reverse('group-list')
-
         request = factory.get(url)
         view = GroupViewSet.as_view(actions={'get': 'list'})
 
-        force_authenticate(request=request, user=self.user, token=self.user.auth_token)
+        user = User.objects.get(username=self.user_names[0])
+        force_authenticate(request=request, user=user, token=user.auth_token)
+
         response = view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(Group.objects.all()), 4)
         s = GroupSerializer(data=response.data[0])
         s.is_valid(raise_exception=True)
-        self.assertEqual(s.data['name'], self.group1name)
 
 

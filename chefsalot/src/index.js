@@ -34,6 +34,7 @@ function loadInitialState() {
     INITIAL_STATE.measurementChoices = 
       measurementsJSON.measurements.map(measurement => { return {value: measurement[0], label: measurement[1]}});
   });
+      console.log(INITIAL_STATE.measurementChoices);
 }
 
 loadInitialState();
