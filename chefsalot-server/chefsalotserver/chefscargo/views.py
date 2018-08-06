@@ -75,6 +75,7 @@ def exchange_token(request, backend):
             )
 
 
+#  TODO delete group request after adding user to group
 class UserToGroupView(APIView):
     def post(self, request, *args, **kwargs):
         r_data = request.data
@@ -84,9 +85,19 @@ class UserToGroupView(APIView):
         group_id = r_data['group']
         sender_id = r_data['sender']
 
+        sender = User.objects.get(id=sender_id)
+        group = Group.objects.get(id=group_id)
+        accepter = request.user
+
         if not list(Group.objects.filter(id=group_id, user=request.user, groupuser__is_group_admin=True)):
             return HttpResponseBadRequest("Invalid group id or user {}\
-             is not an admin and/or member in group (id = {})".format(request.user.username, group_id))
+                is not an admin and/or member in group (id = {})".format(request.user.username, group_id))
+
+        group_request_list = list(GroupRequest.objects.filter(sender=sender, receiver=accepter, group=group))
+        if len(group_request_list) != 1:
+            return HttpResponseBadRequest("No group request exists where user {} is accepting user {}\'s \
+                request to join the group {}".format(accepter.username, sender.username, group.name))
+
 
         # TODO validate and make sure sender id is not in the group already
         new_membership = {

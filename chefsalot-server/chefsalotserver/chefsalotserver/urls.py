@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'social/(?P<backend>[^/]+)/$', exchange_token),
     url(r'^auth/', drf_views.obtain_auth_token, name='auth'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'user_to_group/', UserToGroupView.as_view(), name='user_to_group'),
+    url(r'user_to_group/', UserToGroupView.as_view(), name='user-to-group'),
     url(r'group-request/', GroupRequestView.as_view(), name='group-request'),
     url(r'measurements/', measurements_view, name='measurements')
 ]
