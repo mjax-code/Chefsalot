@@ -18,6 +18,8 @@ const mapStateToProps = state => {
 
 //TODO Make sure user input is correct format 
 const IngredientList = props => {
+  console.log("Loading ingredient list");
+  console.log(props.measurementChoices);
   return (
     <List>
       {props.state.ingredients.map((ingredient, i) => (

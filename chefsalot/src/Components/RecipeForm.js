@@ -103,7 +103,20 @@ class RecipeForm extends Component {
                 likes: 0,
                 dislikes: 0,
             }
-        }).then(response => console.log(response)).catch(error => console.log(error.response));
+        }).then(response => {
+            console.log(response);
+            this.setState({
+                title: '',
+                ingredients: [],
+                servings: '',
+                directions: '',
+                cookTime: '',
+                ingredient: '',
+                ingredientAmount: '',
+                measurement: '',
+                addingIngredient: false,
+            });
+        }).catch(error => console.log(error.response));
     }
 
     render() {
@@ -152,7 +165,7 @@ class RecipeForm extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                id='Directoins'
+                                id='Directions'
                                 label='Directions'
                                 value={this.state.Directions}
                                 multiline

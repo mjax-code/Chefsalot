@@ -30,11 +30,11 @@ function loadInitialState() {
       method: 'get',
       url: 'http://localhost:8000/measurements/',
   }).then(response => {
-    const measurementsJSON = JSON.parse(response.data)
+    const measurementsJSON = JSON.parse(response.data);
     INITIAL_STATE.measurementChoices = 
       measurementsJSON.measurements.map(measurement => { return {value: measurement[0], label: measurement[1]}});
-  });
       console.log(INITIAL_STATE.measurementChoices);
+  });
 }
 
 loadInitialState();

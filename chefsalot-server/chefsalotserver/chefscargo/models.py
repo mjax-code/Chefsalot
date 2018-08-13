@@ -63,6 +63,7 @@ class Measurements(Enum):
     OUNCES = "oz"
     MILLIGRAMS = "mg"
     GRAMS = "g"
+    WHOLE = "whole"
 
 
 measurement_choices = tuple([(m.name, m.value) for m in Measurements])
