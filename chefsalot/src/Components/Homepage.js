@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import Topbar from 'Components/Topbar';
 import RecipeForm from 'Components/RecipeForm';
-import pig from 'static/pig4.png'
-import Grid from '@material-ui/core/Grid';
-import GoogleLoginForm from 'Components/Authentication/GoogleLoginForm';
-import LoginSignupForm from 'Components/Authentication/LoginSignupForm';
 import GoogleLogoutForm from 'Components/Authentication/GoogleLogoutForm';
 import RecipeList from 'Components/UserViewComponents/RecipeList';
 import UserView from 'Components/UserViewComponents/UserView';
 import GroupView from 'Components/GroupViewComponents/GroupView';
 import { connect } from 'react-redux';
-import { Link, Route } from 'react-router-dom';
 
 const mapStateToProps = state => {
   return {
@@ -56,23 +51,7 @@ class Homepage extends Component {
   }
 
   render() {
-    var token = this.props.auth_token;
-
-    if (token === '') {
-      return (
-        <div className="chefsalot-login-page">
-          <div className="login-form-container">
-            <Grid item xs={12}>
-              <img className="pigLogo" src={pig} alt="pig logo" />
-              <h1 className="textLogo"> Chefsalot </h1>
-            </Grid>
-            <LoginSignupForm />
-            <GoogleLoginForm />
-          </div>
-        </div>
-      );
-    } else {
-      return (
+    return (
         <div className="chefsalot-home-page">
           <div className="home-page-container">
             {/* TODO have a better way of handling these different body components ... enum? */}
@@ -82,8 +61,7 @@ class Homepage extends Component {
           </div>
         </div>
       );
-    }
-  }
+   }
 }
 
 export default connect(mapStateToProps)(Homepage);

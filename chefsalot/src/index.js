@@ -7,8 +7,10 @@ import { Provider } from 'react-redux';
 import rootReducer from 'reducers';
 import { createStore } from 'redux';
 import Cookies from 'universal-cookie';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
+import PrivateRoute from 'Components/GenericComponents/PrivateRoute';
+import LoginPage from 'Components/Authentication/LoginPage';
 
 var INITIAL_STATE = {
   token: '',
@@ -44,11 +46,15 @@ const store = createStore(rootReducer, INITIAL_STATE);
 
 class App extends React.Component {
   render() {
+    console.log("Loading in app");
     return (
       <Router>
         <div>
           <CssBaseline />
-          <Homepage />
+          <Switch>
+            <Route path='/login' component={LoginPage} />
+            <PrivateRoute path='/' component={Homepage} />
+          </Switch>
         </div>
       </Router>
     );

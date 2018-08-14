@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GenericListDisplay from 'Components/GenericComponents/GenericListDisplay';
 import LoadingSpinner from 'Components/GenericComponents/LoadingSpinner'
+import Button from '@material-ui/core/Button';
 
 
 class GroupList extends Component {
@@ -32,7 +33,7 @@ class GroupList extends Component {
         this.state.loading ? 
             <LoadingSpinner /> : 
             <GenericListDisplay listLabel="Groups" items={this.props.group_list} 
-                getValue={group => group.name} 
+                getValue={group =>  <Button onClick={()=>{}}>{group.name}</Button>} 
                 getKey={group => group.id}  />
       );
   }
