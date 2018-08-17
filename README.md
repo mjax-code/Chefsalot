@@ -8,5 +8,3 @@
 - Add ability for user to create / subscribe to a group...
 - Add a notification system or something like it to enable users to request access to a group
 - Add admin support for groups
-- Add group add button
-- Add group request button
